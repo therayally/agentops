@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @layer base {
   * {
@@ -11,59 +11,221 @@
   }
 
   html, body {
-    @apply bg-zinc-950 text-zinc-100;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    @apply text-zinc-900;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    min-height: 100vh;
   }
 
+  /* CLEAN WHITE APP CANVAS — like iOS Settings/Apple Music */
   body {
-    background-image:
-      radial-gradient(at 20% 0%, rgba(34, 211, 238, 0.08) 0px, transparent 50%),
-      radial-gradient(at 80% 100%, rgba(34, 211, 238, 0.05) 0px, transparent 50%);
+    background: #f2f2f7;
     background-attachment: fixed;
   }
 
   ::-webkit-scrollbar { width: 8px; height: 8px; }
   ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.15); }
+  ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.25); }
 }
 
 @layer components {
-  .glass {
-    @apply bg-zinc-900/40 backdrop-blur-xl border border-white/5;
+  /* APP CARD — pure white, like iOS grouped table style */
+  .surface {
+    @apply relative;
+    background: #ffffff;
+    border-radius: 1.25rem;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.04),
+      0 4px 12px -2px rgba(0, 0, 0, 0.06);
   }
-  .glass-strong {
-    @apply bg-zinc-900/70 backdrop-blur-xl border border-white/10;
+
+  .surface-strong {
+    @apply relative;
+    background: #ffffff;
+    border-radius: 1.25rem;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.05),
+      0 8px 20px -4px rgba(0, 0, 0, 0.08);
   }
-  .grid-bg {
-    background-image:
-      linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 32px 32px;
+
+  .surface-soft {
+    @apply relative;
+    background: #f9f9fb;
+    border-radius: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.04);
   }
-  .text-glow {
-    text-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
+
+  /* iOS GROUPED LIST ROW */
+  .row {
+    @apply relative flex items-center gap-3 px-4 py-3 transition;
   }
-  .pulse-dot {
+  .row:hover {
+    background: rgba(0, 0, 0, 0.025);
+  }
+  .row-divider {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  /* iOS PILL BUTTON */
+  .pill {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition;
+    background: rgba(0, 0, 0, 0.05);
+    color: rgba(0, 0, 0, 0.7);
+  }
+  .pill:hover {
+    background: rgba(0, 0, 0, 0.08);
+  }
+  .pill-active {
+    background: #007AFF;
+    color: #ffffff;
+  }
+  .pill-active:hover {
+    background: #0066d6;
+  }
+
+  /* GRADIENT TEXT — used sparingly */
+  .text-gradient {
+    background: linear-gradient(135deg, #5856d6 0%, #af52de 50%, #ff2d55 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* iOS COLOR TAGS — only used for icons / accents */
+  .tag-blue    { background: rgba(0, 122, 255, 0.12);  color: #007aff; }
+  .tag-purple  { background: rgba(88, 86, 214, 0.12); color: #5856d6; }
+  .tag-pink    { background: rgba(255, 45, 85, 0.12);  color: #ff2d55; }
+  .tag-red     { background: rgba(255, 59, 48, 0.12);  color: #ff3b30; }
+  .tag-orange  { background: rgba(255, 149, 0, 0.12);  color: #ff9500; }
+  .tag-yellow  { background: rgba(255, 204, 0, 0.12);  color: #ffcc00; }
+  .tag-green   { background: rgba(52, 199, 89, 0.12);  color: #34c759; }
+  .tag-mint    { background: rgba(0, 199, 190, 0.12);  color: #00c7be; }
+  .tag-indigo  { background: rgba(88, 86, 214, 0.12);  color: #5856d6; }
+  .tag-teal    { background: rgba(90, 200, 250, 0.12); color: #5ac8fa; }
+  .tag-cyan    { background: rgba(50, 173, 230, 0.12); color: #32ade6; }
+  .tag-gray    { background: rgba(142, 142, 147, 0.12); color: #8e8e93; }
+
+  /* STATUS CHIPS — iOS system colors */
+  .status-healthy  { background: rgba(52, 199, 89, 0.15);  color: #1d7a36; }
+  .status-degraded { background: rgba(255, 149, 0, 0.15);  color: #ad6500; }
+  .status-down     { background: rgba(255, 59, 48, 0.15);  color: #c7210f; }
+  .status-running  { background: rgba(0, 122, 255, 0.15);  color: #0040a3; }
+  .status-completed{ background: rgba(52, 199, 89, 0.15);  color: #1d7a36; }
+  .status-queued   { background: rgba(142, 142, 147, 0.15); color: #636366; }
+  .status-awaiting { background: rgba(255, 149, 0, 0.15);  color: #ad6500; }
+  .status-ok       { background: rgba(52, 199, 89, 0.15);  color: #1d7a36; }
+  .status-missed   { background: rgba(255, 59, 48, 0.15);  color: #c7210f; }
+  .status-paused   { background: rgba(142, 142, 147, 0.15); color: #636366; }
+  .status-error    { background: rgba(255, 59, 48, 0.15);  color: #c7210f; }
+  .status-fresh    { background: rgba(52, 199, 89, 0.15);  color: #1d7a36; }
+  .status-stale    { background: rgba(255, 149, 0, 0.15);  color: #ad6500; }
+  .status-missing  { background: rgba(255, 59, 48, 0.15);  color: #c7210f; }
+  .status-cyan     { background: rgba(50, 173, 230, 0.15); color: #055f8a; }
+  .status-violet   { background: rgba(175, 82, 222, 0.15); color: #6a1ba6; }
+  .status-amber    { background: rgba(255, 149, 0, 0.15);  color: #ad6500; }
+  .status-rose     { background: rgba(255, 45, 85, 0.15);  color: #b3022b; }
+  .status-emerald  { background: rgba(52, 199, 89, 0.15);  color: #1d7a36; }
+  .status-zinc     { background: rgba(142, 142, 147, 0.15); color: #636366; }
+
+  /* STATUS DOT */
+  .status-dot {
     @apply relative inline-block w-2 h-2 rounded-full;
   }
-  .pulse-dot::after {
+  .status-dot::after {
     content: '';
     @apply absolute inset-0 rounded-full;
-    animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    animation: statusPulse 2.2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
   }
-  @keyframes pulse-ring {
-    0% { transform: scale(0.8); opacity: 0.8; }
+  @keyframes statusPulse {
+    0% { transform: scale(1); opacity: 0.5; }
     100% { transform: scale(2.5); opacity: 0; }
   }
-  .shimmer-bg {
-    background: linear-gradient(
-      90deg,
-      rgba(255,255,255,0) 0%,
-      rgba(34, 211, 238, 0.08) 50%,
-      rgba(255,255,255,0) 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 2.5s linear infinite;
+
+  /* TILE — like iOS Home Screen widgets */
+  .tile {
+    @apply relative rounded-2xl p-5 transition;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.04),
+      0 4px 12px -2px rgba(0, 0, 0, 0.06);
+  }
+  .tile:hover {
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.04),
+      0 8px 20px -4px rgba(0, 0, 0, 0.10);
+    transform: translateY(-1px);
+  }
+
+  /* iOS GROUPED LIST ITEM */
+  .glass-row {
+    @apply relative flex items-center gap-3 px-4 py-3 transition;
+    background: rgba(255, 255, 255, 0.6);
+  }
+  .glass-row:hover {
+    background: rgba(0, 0, 0, 0.025);
+  }
+
+  /* TILE ICON — colored rounded square, iOS app-icon style */
+  .icon-tile {
+    @apply flex items-center justify-center w-10 h-10 rounded-xl transition;
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.4) inset, 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  /* TILE ICON COLORED VARIANTS */
+  .icon-blue   { background: linear-gradient(135deg, #4DA8FF 0%, #007AFF 100%); }
+  .icon-purple { background: linear-gradient(135deg, #8B7BFF 0%, #5856D6 100%); }
+  .icon-pink   { background: linear-gradient(135deg, #FF6B95 0%, #FF2D55 100%); }
+  .icon-red    { background: linear-gradient(135deg, #FF6B6B 0%, #FF3B30 100%); }
+  .icon-orange { background: linear-gradient(135deg, #FFB04A 0%, #FF9500 100%); }
+  .icon-yellow { background: linear-gradient(135deg, #FFD24A 0%, #FFCC00 100%); }
+  .icon-green  { background: linear-gradient(135deg, #5DDB7C 0%, #34C759 100%); }
+  .icon-mint   { background: linear-gradient(135deg, #4DDDCC 0%, #00C7BE 100%); }
+  .icon-indigo { background: linear-gradient(135deg, #8B7BFF 0%, #5856D6 100%); }
+  .icon-teal   { background: linear-gradient(135deg, #6DCAF0 0%, #5AC8FA 100%); }
+  .icon-cyan   { background: linear-gradient(135deg, #5AC4F0 0%, #32ADE6 100%); }
+  .icon-gray   { background: linear-gradient(135deg, #B8B8BB 0%, #8E8E93 100%); }
+  .icon-amber  { background: linear-gradient(135deg, #FFB04A 0%, #FF9500 100%); }
+
+  /* NAV TAB — iOS segmented control style */
+  .nav-tab {
+    @apply flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition;
+    color: rgba(0, 0, 0, 0.55);
+  }
+  .nav-tab:hover {
+    color: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.04);
+  }
+  .nav-tab-active {
+    background: #ffffff;
+    color: #007aff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.06),
+      0 2px 6px rgba(0, 0, 0, 0.04);
+  }
+
+  /* CHIP — small label */
+  .chip {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold tracking-wide;
+    background: rgba(0, 0, 0, 0.05);
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  /* PILL INPUT */
+  .pill-input {
+    @apply px-3 py-1.5 rounded-full text-xs outline-none;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid transparent;
+  }
+  .pill-input:focus {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.15);
+  }
+  .pill-input::placeholder {
+    color: rgba(0, 0, 0, 0.35);
   }
 }
