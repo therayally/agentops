@@ -297,116 +297,233 @@ export default function App() {
         {/* LIVE TAB */}
         {tab === "live" && (
         <>
-        {/* HERO */}
-        <section className="grid grid-cols-12 gap-4">
-          <div className="col-span-12 lg:col-span-4 surface p-6 relative overflow-hidden">
-            <div className="absolute -right-16 -top-16 w-56 h-56 rounded-full opacity-[0.07]"
-              style={{ background: 'radial-gradient(circle, #5856d6 0%, transparent 70%)' }} />
-            <div className="relative">
-              <div className="flex items-center gap-2 text-[10px] uppercase tracking-wider text-blue-600 font-bold mb-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
+        {/* ROW 1 — Full-width gradient hero banner */}
+        <section
+          className="rounded-3xl p-8 relative overflow-hidden text-white"
+          style={{
+            background: "linear-gradient(120deg, #6366f1 0%, #8b5cf6 35%, #ec4899 70%, #f97316 100%)",
+          }}
+        >
+          {/* Decorative gradient orbs */}
+          <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-white/10 blur-3xl" />
+          <div className="absolute -left-10 -bottom-10 w-72 h-72 rounded-full bg-cyan-300/30 blur-3xl" />
+          <div className="absolute right-1/3 top-1/2 w-2 h-2 rounded-full bg-white/60 animate-pulse" />
+          <div className="absolute right-1/2 top-1/4 w-1.5 h-1.5 rounded-full bg-cyan-200/80 animate-pulse" style={{animationDelay: '1s'}} />
+          <div className="absolute right-1/4 bottom-1/4 w-2 h-2 rounded-full bg-pink-200/80 animate-pulse" style={{animationDelay: '2s'}} />
+
+          <div className="relative grid grid-cols-12 gap-6 items-center">
+            <div className="col-span-12 lg:col-span-7">
+              <div className="flex items-center gap-2 text-[10px] uppercase tracking-wider text-white/80 font-bold mb-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                 System · live
               </div>
-              <h2 className="text-4xl font-extrabold tracking-tight text-zinc-900 leading-tight">
+              <h1 className="text-5xl font-black tracking-tight leading-none">
                 Ops Control
-              </h2>
-              <p className="text-sm text-zinc-500 mt-1">All systems nominal · 1 watchpoint</p>
-              <div className="flex items-baseline gap-2 mt-5">
-                <span className="text-5xl font-bold text-zinc-900 tabular-nums">{heroStats.uptime}</span>
-                <span className="text-xs text-zinc-500 font-mono">uptime 30d</span>
-              </div>
-              <div className="mt-5 flex items-center gap-3 text-[11px] font-mono text-zinc-600">
-                <span className="flex items-center gap-1.5">
-                  <Activity className="w-3 h-3" />
-                  {processesRunning} active
-                </span>
-                <span className="text-zinc-300">·</span>
-                <span className="flex items-center gap-1.5">
-                  <Server className="w-3 h-3" />
-                  {mcpHealth}% healthy
-                </span>
-                <span className="text-zinc-300">·</span>
-                <span className="flex items-center gap-1.5 text-amber-700">
-                  <AlertTriangle className="w-3 h-3" />
-                  1 incident
-                </span>
-              </div>
+              </h1>
+              <p className="text-white/90 text-sm mt-3 max-w-md">
+                {processesRunning} agents running across {mcps.length} MCP servers · all metrics healthy
+              </p>
             </div>
-          </div>
-
-          {/* CHART TILES ROW — visible data viz */}
-          <div className="col-span-6 lg:col-span-4 tile relative overflow-hidden">
-            <div className="orb w-32 h-32 bg-cyan-300 -right-8 -top-8" />
-            <div className="relative">
-              <div className="flex items-center justify-between mb-2">
-                <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">MCP calls · 7 days</div>
-                <span className="text-gradient-cyan-blue text-sm font-bold tabular-nums">31.4k</span>
-              </div>
-              <div className="text-2xl font-bold text-slate-900 mb-2">+18.2%</div>
-              <BarChart values={chartData.mcpCalls7d.map(d => d.v)} height={88} />
-              <div className="flex items-center justify-between text-[9px] font-mono text-slate-500 mt-1">
-                {chartData.mcpCalls7d.map(d => <span key={d.d}>{d.d}</span>)}
-              </div>
-            </div>
-          </div>
-
-          <div className="col-span-6 lg:col-span-4 tile relative overflow-hidden">
-            <div className="orb w-32 h-32 bg-pink-300 -right-8 -bottom-8" style={{animationDelay: '4s'}} />
-            <div className="relative">
-              <div className="flex items-center justify-between mb-2">
-                <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">Token throughput · 24h</div>
-                <span className="text-gradient-pink-orange text-sm font-bold tabular-nums">510k</span>
-              </div>
-              <div className="text-2xl font-bold text-slate-900 mb-2">peak 3:42 PM</div>
-              <AreaChart values={chartData.tokens24h} height={88} color="pink" />
-            </div>
-          </div>
-
-          <div className="col-span-12 lg:col-span-4 tile relative overflow-hidden">
-            <div className="orb w-32 h-32 bg-violet-300 -left-8 -top-8" style={{animationDelay: '8s'}} />
-            <div className="relative">
-              <div className="flex items-center justify-between mb-3">
-                <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">Model mix</div>
-                <span className="text-gradient-purple-pink text-sm font-bold tabular-nums">4 active</span>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                {donutData.modelMix.map(d => (
-                  <DonutRing key={d.label} percent={d.value} size={56} strokeWidth={6} gradient={d.gradient} label={d.label} />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* 4 KPI tiles */}
-          {metrics.map((m, i) => (
-            <div key={i} className="col-span-6 lg:col-span-2 tile">
-              <div className="flex items-center justify-between mb-3">
-                <div className="text-[10px] uppercase tracking-wider text-zinc-500 font-bold">{m.label}</div>
-                <div className={`icon-tile w-8 h-8 rounded-lg ${["icon-orange", "icon-blue", "icon-purple", "icon-green"][i]}`}>
-                  {i === 0 && <Zap className="w-3.5 h-3.5 text-white" />}
-                  {i === 1 && <Activity className="w-3.5 h-3.5 text-white" />}
-                  {i === 2 && <Network className="w-3.5 h-3.5 text-white" />}
-                  {i === 3 && <Gauge className="w-3.5 h-3.5 text-white" />}
+            <div className="col-span-12 lg:col-span-5 flex flex-col gap-4">
+              <div className="grid grid-cols-3 gap-3">
+                <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-3 border border-white/20">
+                  <div className="text-[9px] uppercase tracking-wider text-white/70 font-bold">Uptime</div>
+                  <div className="text-2xl font-black tabular-nums">{heroStats.uptime}</div>
+                </div>
+                <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-3 border border-white/20">
+                  <div className="text-[9px] uppercase tracking-wider text-white/70 font-bold">MCP healthy</div>
+                  <div className="text-2xl font-black tabular-nums">{mcpHealth}%</div>
+                </div>
+                <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-3 border border-white/20">
+                  <div className="text-[9px] uppercase tracking-wider text-white/70 font-bold">Incidents</div>
+                  <div className="text-2xl font-black tabular-nums">1</div>
                 </div>
               </div>
-              <div className="flex items-baseline justify-between">
-                <span className="text-2xl font-bold text-zinc-900 tabular-nums">{m.value}</span>
-                <span className={`flex items-center gap-0.5 text-[10px] font-bold font-mono ${m.delta > 0 ? (m.inverse ? "text-rose-600" : "text-emerald-600") : "text-zinc-500"}`}>
-                  {m.delta > 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                  {Math.abs(m.delta).toFixed(1)}%
-                </span>
+              <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-3 border border-white/20">
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="text-[9px] uppercase tracking-wider text-white/70 font-bold">Token burn 24h</div>
+                  <div className="text-sm font-bold tabular-nums">510k / 2.5M</div>
+                </div>
+                <div className="h-2 rounded-full bg-white/20 overflow-hidden">
+                  <div className="h-full rounded-full bg-gradient-to-r from-cyan-300 via-white to-pink-200" style={{width: "20.4%"}} />
+                </div>
               </div>
-              <div className="mt-3 -mb-1">
-                <MiniLine values={m.trend} width={160} height={32} color={(["cyan","blue","purple","green"] as const)[i]} />
+            </div>
+          </div>
+        </section>
+
+        {/* ROW 2 — 4 KPI tiles, varied */}
+        <section className="grid grid-cols-12 gap-4">
+          {metrics.map((m, i) => (
+            <div key={i} className={`col-span-6 lg:col-span-3 tile relative overflow-hidden`}
+              style={{ minHeight: i === 1 ? "148px" : i === 2 ? "118px" : "133px" }}>
+              <div className="orb w-24 h-24"
+                style={{
+                  background: ["#fb923c", "#60a5fa", "#a78bfa", "#34d399"][i],
+                  top: i % 2 === 0 ? "-20px" : "auto",
+                  bottom: i % 2 === 1 ? "-20px" : "auto",
+                  right: i % 2 === 0 ? "-20px" : "auto",
+                  left: i % 2 === 1 ? "-20px" : "auto",
+                }} />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">{m.label}</div>
+                  <div className={`icon-tile w-8 h-8 rounded-lg ${["icon-orange", "icon-blue", "icon-purple", "icon-green"][i]}`}>
+                    {i === 0 && <Zap className="w-3.5 h-3.5 text-white" />}
+                    {i === 1 && <Activity className="w-3.5 h-3.5 text-white" />}
+                    {i === 2 && <Network className="w-3.5 h-3.5 text-white" />}
+                    {i === 3 && <Gauge className="w-3.5 h-3.5 text-white" />}
+                  </div>
+                </div>
+                <div className="flex items-baseline justify-between">
+                  <span className="text-2xl font-bold text-slate-900 tabular-nums">{m.value}</span>
+                  <span className={`flex items-center gap-0.5 text-[10px] font-bold font-mono ${m.delta > 0 ? (m.inverse ? "text-rose-600" : "text-emerald-600") : "text-slate-500"}`}>
+                    {m.delta > 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                    {Math.abs(m.delta).toFixed(1)}%
+                  </span>
+                </div>
+                <div className="mt-3 -mb-1">
+                  <MiniLine values={m.trend} width={240} height={32} color={(["cyan","blue","purple","green"] as const)[i]} />
+                </div>
               </div>
             </div>
           ))}
         </section>
 
-        {/* MAIN GRID */}
+        {/* ROW 3 — Big chart + 2 donut side column */}
         <section className="grid grid-cols-12 gap-4">
-          {/* MCP grid */}
-          <div className="col-span-12 lg:col-span-7 surface p-6">
+          {/* Big bar chart — tall */}
+          <div className="col-span-12 lg:col-span-8 tile relative overflow-hidden" style={{minHeight: "280px"}}>
+            <div className="orb w-40 h-40 bg-cyan-300 -right-8 -top-8" />
+            <div className="relative">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">MCP calls · 7 days</div>
+                  <div className="text-3xl font-black text-slate-900 mt-1 tabular-nums">31,420</div>
+                  <div className="text-xs text-emerald-600 font-bold mt-0.5">+18.2% vs prior week</div>
+                </div>
+                <div className="flex items-center gap-1.5 pill">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
+                  calls
+                </div>
+              </div>
+              <BarChart values={chartData.mcpCalls7d.map(d => d.v)} width={620} height={160} />
+              <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 mt-2 px-2">
+                {chartData.mcpCalls7d.map(d => <span key={d.d}>{d.d}</span>)}
+              </div>
+            </div>
+          </div>
+
+          {/* 2 donut rings stacked */}
+          <div className="col-span-12 lg:col-span-4 flex flex-col gap-4">
+            <div className="tile relative overflow-hidden flex-1">
+              <div className="orb w-32 h-32 bg-pink-300 -right-8 -top-8" style={{animationDelay: '4s'}} />
+              <div className="relative">
+                <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold mb-2">Model mix</div>
+                <div className="grid grid-cols-2 gap-1">
+                  {donutData.modelMix.slice(0, 2).map(d => (
+                    <DonutRing key={d.label} percent={d.value} size={48} strokeWidth={5} gradient={d.gradient} label={d.label} />
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="tile relative overflow-hidden flex-1">
+              <div className="orb w-32 h-32 bg-emerald-300 -left-8 -bottom-8" style={{animationDelay: '6s'}} />
+              <div className="relative">
+                <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold mb-2">Capacity</div>
+                <div className="grid grid-cols-2 gap-1">
+                  {donutData.capacity.slice(0, 2).map(d => (
+                    <DonutRing key={d.label} percent={d.value} size={48} strokeWidth={5} gradient={d.gradient} label={d.label} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ROW 4 — Area chart wide + token budget gradient */}
+        <section className="grid grid-cols-12 gap-4">
+          <div className="col-span-12 lg:col-span-8 tile relative overflow-hidden" style={{minHeight: "260px"}}>
+            <div className="orb w-40 h-40 bg-pink-300 -right-12 -bottom-8" style={{animationDelay: '3s'}} />
+            <div className="orb w-32 h-32 bg-purple-300 -left-8 -top-8" style={{animationDelay: '7s'}} />
+            <div className="relative">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">Token throughput · 24h</div>
+                  <div className="text-3xl font-black text-slate-900 mt-1 tabular-nums">510k</div>
+                  <div className="text-xs text-pink-600 font-bold mt-0.5">peak 3:42 PM · 28k/hr</div>
+                </div>
+                <div className="flex items-center gap-1.5 pill">
+                  <span className="w-1.5 h-1.5 rounded-full bg-pink-500" />
+                  tokens/hr
+                </div>
+              </div>
+              <AreaChart values={chartData.tokens24h} width={620} height={140} color="pink" />
+              <div className="grid grid-cols-4 gap-3 mt-4">
+                <div>
+                  <div className="text-[9px] font-mono text-slate-500 uppercase tracking-wider">Total</div>
+                  <div className="text-base font-bold text-slate-900 tabular-nums">510k</div>
+                </div>
+                <div>
+                  <div className="text-[9px] font-mono text-slate-500 uppercase tracking-wider">Avg/hr</div>
+                  <div className="text-base font-bold text-slate-900 tabular-nums">21.2k</div>
+                </div>
+                <div>
+                  <div className="text-[9px] font-mono text-slate-500 uppercase tracking-wider">Peak</div>
+                  <div className="text-base font-bold text-pink-600 tabular-nums">28k</div>
+                </div>
+                <div>
+                  <div className="text-[9px] font-mono text-slate-500 uppercase tracking-wider">Cost</div>
+                  <div className="text-base font-bold text-slate-900 tabular-nums">$12.40</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Token budget GRADIENT card */}
+          <div
+            className="col-span-12 lg:col-span-4 rounded-2xl p-5 relative overflow-hidden text-white"
+            style={{ background: "linear-gradient(160deg, #f97316 0%, #ec4899 60%, #8b5cf6 100%)" }}
+          >
+            <div className="absolute -right-16 -bottom-16 w-56 h-56 rounded-full bg-white/15 blur-3xl" />
+            <div className="relative">
+              <div className="flex items-center gap-2 text-[10px] uppercase tracking-wider text-white/80 font-bold mb-3">
+                <Zap className="w-3 h-3" />
+                Token budget
+              </div>
+              <div className="flex items-baseline gap-2">
+                <span className="text-4xl font-black tabular-nums">{heroStats.tokensToday}</span>
+                <span className="text-sm text-white/70 font-mono">/ {heroStats.tokenBudget}</span>
+              </div>
+              <div className="mt-4 h-3 rounded-full bg-white/20 overflow-hidden">
+                <div className="h-full rounded-full bg-white" style={{ width: `${tokensPct}%`, boxShadow: "0 0 12px rgba(255,255,255,0.6)" }} />
+              </div>
+              <div className="flex items-center justify-between mt-2 text-[10px] font-mono text-white/80">
+                <span>{tokensPct.toFixed(0)}% used</span>
+                <span>on track for 1.78M</span>
+              </div>
+              <div className="grid grid-cols-3 gap-3 mt-5 pt-5 border-t border-white/20">
+                <div>
+                  <div className="text-[10px] font-mono text-white/70 uppercase tracking-wider">Today</div>
+                  <div className="text-lg font-bold tabular-nums">142k</div>
+                </div>
+                <div>
+                  <div className="text-[10px] font-mono text-white/70 uppercase tracking-wider">Week</div>
+                  <div className="text-lg font-bold tabular-nums">847k</div>
+                </div>
+                <div>
+                  <div className="text-[10px] font-mono text-white/70 uppercase tracking-wider">Avg/day</div>
+                  <div className="text-lg font-bold tabular-nums">121k</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ROW 5 — Varied bottom row */}
+        <section className="grid grid-cols-12 gap-4">
+          {/* MCP servers - medium */}
+          <div className="col-span-12 lg:col-span-5 surface p-5">
             <SectionHeader
               icon="blue"
               iconComp={<Server className="w-4 h-4 text-white" />}
@@ -416,56 +533,17 @@ export default function App() {
               onAction={() => setTab("mcps")}
             />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
-              {mcps.map(m => <McpCard key={m.name} m={m} hovered={hoveredMcp === m.name} onEnter={() => setHoveredMcp(m.name)} onLeave={() => setHoveredMcp(null)} compact />)}
+              {mcps.slice(0, 4).map(m => <McpCard key={m.name} m={m} hovered={hoveredMcp === m.name} onEnter={() => setHoveredMcp(m.name)} onLeave={() => setHoveredMcp(null)} compact />)}
             </div>
           </div>
 
-          {/* AI Suggestions */}
-          <div className="col-span-12 lg:col-span-5 surface p-6">
-            <SectionHeader
-              icon="pink"
-              iconComp={<Sparkles className="w-4 h-4 text-white" />}
-              title="AI Suggestions"
-              badge={`${suggestions.length} queued`}
-              badgeColor="amber"
-              action="filter"
-              onAction={() => {}}
-            />
-            <div className="space-y-2 max-h-[360px] overflow-y-auto pr-1">
-              {suggestions.slice(0, 5).map(s => (
-                <div key={s.rank} className="surface-soft p-3 hover:bg-zinc-50 transition group cursor-pointer">
-                  <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-zinc-600 bg-white border border-zinc-200">
-                      {s.rank}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <PriorityBadge p={s.priority} />
-                        <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">{s.source}</span>
-                      </div>
-                      <div className="text-sm font-semibold text-zinc-900 group-hover:text-blue-700 transition truncate">
-                        {s.title}
-                      </div>
-                      <div className="text-xs text-zinc-500 mt-0.5 line-clamp-2">{s.detail}</div>
-                    </div>
-                    <button className="opacity-0 group-hover:opacity-100 transition flex-shrink-0 text-xs text-blue-600 hover:text-blue-700 flex items-center gap-1 font-semibold">
-                      {s.action}
-                      <ArrowUpRight className="w-3 h-3" />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Live Agents */}
-          <div className="col-span-12 lg:col-span-7 surface p-6">
+          {/* Live Agents - tall */}
+          <div className="col-span-12 lg:col-span-7 surface p-5">
             <SectionHeader
               icon="purple"
               iconComp={<Bot className="w-4 h-4 text-white" />}
               title="Live Agents"
               badge={`${processesRunning} running`}
-              badgeColor="emerald"
               action="View all"
               onAction={() => setTab("agents")}
               trailing={<span className="chip"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />streaming</span>}
@@ -474,24 +552,12 @@ export default function App() {
               {processes.slice(0, 6).map(p => <ProcessRow key={p.pid} p={p} />)}
             </div>
           </div>
+        </section>
 
-          {/* Vaults */}
-          <div className="col-span-12 lg:col-span-5 surface p-6">
-            <SectionHeader
-              icon="orange"
-              iconComp={<BookOpen className="w-4 h-4 text-white" />}
-              title="Vaults"
-              badge={`${vaults.length} namespaces`}
-              action="router"
-              onAction={() => setTab("vaults")}
-            />
-            <div className="space-y-1.5 max-h-[360px] overflow-y-auto pr-1">
-              {vaults.map(v => <VaultRow key={v.name} v={v} />)}
-            </div>
-          </div>
-
-          {/* Activity Timeline */}
-          <div className="col-span-12 lg:col-span-8 surface p-6">
+        {/* ROW 6 — Timeline + Crons + Vaults + Skills - varied sizes */}
+        <section className="grid grid-cols-12 gap-4">
+          {/* Activity Timeline - wide */}
+          <div className="col-span-12 lg:col-span-7 surface p-5">
             <SectionHeader
               icon="indigo"
               iconComp={<Terminal className="w-4 h-4 text-white" />}
@@ -513,110 +579,78 @@ export default function App() {
               action="View all"
               onAction={() => setTab("logs")}
             />
-            <div className="relative space-y-1 max-h-[360px] overflow-y-auto pr-2">
-              <div className="absolute left-[7px] top-2 bottom-2 w-px bg-zinc-200" />
+            <div className="relative space-y-1 max-h-[320px] overflow-y-auto pr-2">
+              <div className="absolute left-[7px] top-2 bottom-2 w-px bg-slate-200" />
               {filteredTimeline.map(e => (
                 <div key={e.id} className="flex items-start gap-3 relative">
                   <div className={`flex-shrink-0 mt-1.5 w-3.5 h-3.5 rounded-full ${statusStyles[e.color].dot} ring-4 ring-white z-10`} />
                   <div className="flex-1 min-w-0 pb-3">
                     <div className="flex items-baseline gap-2">
-                      <span className="text-sm text-zinc-900">{e.title}</span>
+                      <span className="text-sm text-slate-900">{e.title}</span>
                     </div>
                     <div className="flex items-center gap-2 mt-0.5">
-                      <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">{e.type}</span>
-                      <span className="text-zinc-300">·</span>
-                      <span className="text-[10px] font-mono text-zinc-400">{e.ts}</span>
+                      <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">{e.type}</span>
+                      <span className="text-slate-300">·</span>
+                      <span className="text-[10px] font-mono text-slate-400">{e.ts}</span>
                     </div>
                   </div>
                 </div>
               ))}
               {filteredTimeline.length === 0 && (
-                <div className="text-center py-8 text-xs text-zinc-500 font-mono">
+                <div className="text-center py-8 text-xs text-slate-500 font-mono">
                   no events match filter
                 </div>
               )}
             </div>
           </div>
 
-          {/* Crons */}
-          <div className="col-span-12 lg:col-span-4 surface p-6">
+          {/* Crons - small */}
+          <div className="col-span-12 lg:col-span-2 surface p-5">
             <SectionHeader
               icon="teal"
               iconComp={<Clock className="w-4 h-4 text-white" />}
               title="Crons"
-              badge={`${crons.length} jobs`}
-              action="View all"
+              badge={`${crons.length}`}
+              action="View"
               onAction={() => setTab("crons")}
-              trailing={
-                <span className="chip bg-red-100 text-red-700">
-                  <AlertTriangle className="w-3 h-3" />
-                  {crons.filter(c => c.status === "missed" || c.status === "error").length} watch
-                </span>
-              }
             />
             <div className="space-y-1.5">
-              {crons.slice(0, 5).map(c => <CronRow key={c.name} c={c} />)}
+              {crons.slice(0, 4).map(c => <CronRow key={c.name} c={c} />)}
             </div>
           </div>
 
-          {/* Token budget */}
-          <div className="col-span-12 lg:col-span-5 surface p-6 relative overflow-hidden">
-            <div className="absolute -right-20 -bottom-20 w-64 h-64 rounded-full opacity-[0.06]"
-              style={{ background: 'radial-gradient(circle, #ff9500 0%, transparent 70%)' }} />
-            <div className="relative">
-              <div className="flex items-center gap-2 text-[10px] uppercase tracking-wider text-amber-700 font-bold mb-3">
-                <Zap className="w-3 h-3" />
-                Token budget
-              </div>
-              <div className="flex items-baseline gap-2">
-                <span className="text-4xl font-bold tabular-nums">{heroStats.tokensToday}</span>
-                <span className="text-sm text-zinc-500 font-mono">/ {heroStats.tokenBudget}</span>
-              </div>
-              <div className="mt-4 h-2.5 rounded-full overflow-hidden bg-zinc-100">
-                <div
-                  className="h-full rounded-full transition-all"
-                  style={{
-                    width: `${tokensPct}%`,
-                    background: 'linear-gradient(90deg, #5856d6 0%, #af52de 50%, #ff9500 100%)'
-                  }}
-                />
-              </div>
-              <div className="flex items-center justify-between mt-2 text-[10px] font-mono text-zinc-500">
-                <span>{tokensPct.toFixed(0)}% used</span>
-                <span className="text-amber-700">on track for 1.78M</span>
-              </div>
-              <div className="grid grid-cols-3 gap-3 mt-5 pt-5 border-t border-zinc-100">
-                <div>
-                  <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">Today</div>
-                  <div className="text-lg font-bold text-zinc-900 tabular-nums">142k</div>
-                </div>
-                <div>
-                  <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">This week</div>
-                  <div className="text-lg font-bold text-zinc-900 tabular-nums">847k</div>
-                </div>
-                <div>
-                  <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">Avg/day</div>
-                  <div className="text-lg font-bold text-zinc-900 tabular-nums">121k</div>
-                </div>
-              </div>
+          {/* Vaults - small */}
+          <div className="col-span-12 lg:col-span-3 surface p-5">
+            <SectionHeader
+              icon="orange"
+              iconComp={<BookOpen className="w-4 h-4 text-white" />}
+              title="Vaults"
+              badge={`${vaults.length}`}
+              action="View"
+              onAction={() => setTab("vaults")}
+            />
+            <div className="space-y-1.5">
+              {vaults.slice(0, 4).map(v => <VaultRow key={v.name} v={v} />)}
             </div>
           </div>
+        </section>
 
-          {/* Skills library */}
-          <div className="col-span-12 lg:col-span-7 surface p-6">
+        {/* ROW 7 — Skills library + AI Suggestions - varied */}
+        <section className="grid grid-cols-12 gap-4">
+          <div className="col-span-12 lg:col-span-7 surface p-5">
             <SectionHeader
               icon="mint"
               iconComp={<Brain className="w-4 h-4 text-white" />}
               title="Skills Library"
               badge={`${skills.length} indexed`}
               trailing={
-                <div className="flex items-center gap-2 text-[10px] font-mono text-zinc-600">
+                <div className="flex items-center gap-2 text-[10px] font-mono text-slate-600">
                   <span className="flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
                     {skills.filter(s => s.active).length} active
                   </span>
                   <span className="flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
                     {skills.filter(s => !s.active).length} cached
                   </span>
                 </div>
@@ -626,11 +660,49 @@ export default function App() {
               {skills.map(s => (
                 <span
                   key={s.name}
-                  className={`tag ${s.active ? "tag-blue" : CategoryTagColor(s.category)} inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono transition`}
+                  className={`tag ${s.active ? "tag-cyan" : CategoryTagColor(s.category)} inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-mono transition`}
                 >
                   <CategoryIcon c={s.category} />
                   {s.name}
                 </span>
+              ))}
+            </div>
+          </div>
+
+          {/* AI Suggestions - 5 wide */}
+          <div className="col-span-12 lg:col-span-5 surface p-5">
+            <SectionHeader
+              icon="pink"
+              iconComp={<Sparkles className="w-4 h-4 text-white" />}
+              title="AI Suggestions"
+              badge={`${suggestions.length} queued`}
+              badgeColor="amber"
+              action="View all"
+              onAction={() => {}}
+            />
+            <div className="space-y-2 max-h-[280px] overflow-y-auto pr-1">
+              {suggestions.slice(0, 5).map(s => (
+                <div key={s.rank} className="surface-soft p-3 hover:bg-slate-50 transition group cursor-pointer">
+                  <div className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-slate-600 bg-white border border-slate-200">
+                      {s.rank}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <PriorityBadge p={s.priority} />
+                        <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider">{s.source}</span>
+                      </div>
+                      <div className="text-sm font-semibold text-slate-900 group-hover:text-blue-700 transition truncate">
+                        {s.title}
+                      </div>
+                      <div className="text-xs text-slate-500 mt-0.5 line-clamp-2">{s.detail}</div>
+                    </div>
+                    <button className="opacity-0 group-hover:opacity-100 transition flex-shrink-0 text-xs text-blue-600 hover:text-blue-700 flex items-center gap-1 font-semibold">
+                      {s.action}
+                      <ArrowUpRight className="w-3 h-3" />
+                    </button>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
@@ -639,14 +711,14 @@ export default function App() {
         {/* FOOTER */}
         <footer>
           <div className="surface px-6 py-4 flex items-center justify-between">
-            <div className="flex items-center gap-4 text-[10px] font-mono text-zinc-500">
+            <div className="flex items-center gap-4 text-[10px] font-mono text-slate-500">
               <span className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 snapshot · captured 0:42 ago
               </span>
-              <span className="text-zinc-300">·</span>
+              <span className="text-slate-300">·</span>
               <span>therayally/agentops</span>
-              <span className="text-zinc-300">·</span>
+              <span className="text-slate-300">·</span>
               <span>MIT</span>
             </div>
             <a
