@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -12,7 +12,9 @@
 
   html, body {
     @apply text-slate-900;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-feature-settings: "ss01" 1, "cv02" 1;
+    font-variant-numeric: tabular-nums;
     min-height: 100vh;
   }
 
@@ -111,14 +113,9 @@
     background-clip: text;
     color: transparent;
   }
-  .text-gradient-cyan {
-    background: linear-gradient(135deg, #22d3ee 0%, #0ea5e9 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
+  .text-gradient-cyan,
   .text-gradient-emerald {
-    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+    background: #0891b2;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -221,6 +218,32 @@
     @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold tracking-wide;
     background: rgba(0, 0, 0, 0.05);
     color: rgba(15, 23, 42, 0.7);
+  }
+
+  .font-mono {
+    font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace !important;
+    letter-spacing: -0.015em;
+  }
+
+  /* PREMIUM INTERFACE SURFACES: tighter geometry, quieter elevation */
+  .surface, .surface-strong {
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 10px 24px -18px rgba(15, 23, 42, 0.24);
+  }
+  .surface-soft {
+    border-radius: 10px;
+  }
+  .tile {
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 10px 24px -18px rgba(15, 23, 42, 0.22);
+  }
+  .tile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.06), 0 16px 28px -18px rgba(15, 23, 42, 0.26);
+  }
+  .icon-tile {
+    border-radius: 10px;
+    box-shadow: none;
   }
 
   /* PILL INPUT */

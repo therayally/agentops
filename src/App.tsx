@@ -299,7 +299,7 @@ export default function App() {
         <>
         {/* ROW 1: professional dark control header */}
         <section
-          className="rounded-3xl p-8 relative overflow-hidden text-white border border-slate-700"
+          className="rounded-[14px] p-8 relative overflow-hidden text-white border border-slate-700"
           style={{
             background: "#111827",
             boxShadow: "0 18px 50px -28px rgba(15, 23, 42, 0.85)",
