@@ -663,7 +663,7 @@ export default function App() {
             />
             <div className="space-y-2 max-h-[280px] overflow-y-auto pr-1">
               {suggestions.slice(0, 5).map(s => (
-                <div key={s.rank} className="surface-soft p-3 hover:bg-slate-50 transition group cursor-pointer">
+                <div key={s.rank} className="surface-soft is-widget p-3 hover:bg-slate-50 transition group cursor-pointer">
                   <div className="flex items-start gap-3">
                     <div className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-slate-600 bg-white border border-slate-200">
                       {s.rank}
@@ -861,7 +861,7 @@ function ProcessCard({ p }: { p: any }) {
                     p.state === "awaiting" ? "icon-red" :
                     "icon-gray";
   return (
-    <div className="surface-soft p-4 hover:bg-zinc-50 transition">
+    <div className="surface-soft is-widget p-4 hover:bg-zinc-50 transition">
       <div className="flex items-start gap-3">
         <div className={`icon-tile w-10 h-10 rounded-xl ${iconColor}`}>
           <CategoryIcon c={p.category} />
@@ -926,7 +926,7 @@ function VaultCard({ v }: { v: any }) {
                     v.status === "stale" ? "icon-red" :
                     "icon-red";
   return (
-    <div className="surface-soft p-4 hover:bg-zinc-50 transition">
+    <div className="surface-soft is-widget p-4 hover:bg-zinc-50 transition">
       <div className="flex items-start gap-3">
         <div className={`icon-tile w-10 h-10 rounded-xl ${iconColor}`}>
           <BookOpen className="w-4 h-4 text-white" />
@@ -985,7 +985,7 @@ function CronCard({ c }: { c: any }) {
                     c.status === "paused" ? "icon-gray" :
                     "icon-red";
   return (
-    <div className="surface-soft p-4 hover:bg-zinc-50 transition">
+    <div className="surface-soft is-widget p-4 hover:bg-zinc-50 transition">
       <div className="flex items-start gap-3 mb-3">
         <div className={`icon-tile w-10 h-10 rounded-xl ${iconColor}`}>
           <Clock className="w-4 h-4 text-white" />
