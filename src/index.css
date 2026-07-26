@@ -257,18 +257,20 @@
   .live-stage .surface,
   .live-stage .surface-soft {
     background: #ffffff;
-    border: 1px solid #000000;
     border-radius: 0;
     box-shadow: none;
+  }
+  .live-stage .surface-soft,
+  .live-stage .tile.is-widget,
+  .live-stage .surface.is-widget {
+    border: 1px solid #1f2937;
+    border-radius: 8px;
   }
   .live-stage .tile:hover,
   .live-stage .surface:hover {
     background: #fafafa;
     transform: none;
     box-shadow: none;
-  }
-  .live-stage .surface-soft {
-    background: #ffffff;
   }
   .live-stage .section-header,
   .live-stage .chip {
