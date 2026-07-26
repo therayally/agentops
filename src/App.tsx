@@ -305,7 +305,7 @@ export default function App() {
             boxShadow: "0 18px 50px -28px rgba(15, 23, 42, 0.85)",
           }}
         >
-          <div className="absolute inset-y-0 left-0 w-1.5 bg-blue-500" />
+          <div className="absolute inset-y-0 left-0 w-1.5 bg-transparent" />
           <div className="absolute right-0 top-0 h-full w-1/3 bg-slate-800/45" />
           <div className="absolute right-12 top-10 w-20 h-20 rounded-full border border-cyan-400/20" />
           <div className="absolute right-20 top-18 w-3 h-3 rounded-full bg-cyan-400 animate-pulse" />
