@@ -296,54 +296,59 @@ export default function App() {
 
         {/* LIVE TAB */}
         {tab === "live" && (
-        <>
-        {/* ROW 1: professional dark control header */}
+        <div className="live-stage">
+        {/* ROW 1: open editorial control header */}
         <section
-          className="rounded-[14px] p-8 relative overflow-hidden text-white"
+          className="hero-open relative overflow-hidden text-slate-900"
           style={{
-            background: "#111827",
-            boxShadow: "0 18px 50px -28px rgba(15, 23, 42, 0.85)",
+            background: "transparent",
+            boxShadow: "none",
           }}
         >
-          <div className="absolute inset-y-0 left-0 w-1.5 bg-transparent" />
-          <div className="absolute right-0 top-0 h-full w-1/3 bg-slate-800/45" />
-          <div className="absolute right-12 top-10 w-20 h-20 rounded-full border border-cyan-400/20" />
+          <div className="absolute right-0 top-0 h-full w-1/3 bg-transparent" />
+          <div className="absolute right-12 top-10 w-24 h-24 rounded-full border border-cyan-400/20" />
           <div className="absolute right-20 top-18 w-3 h-3 rounded-full bg-cyan-400 animate-pulse" />
+          <svg className="absolute right-4 bottom-0 w-[360px] h-[220px] opacity-80" viewBox="0 0 360 220" fill="none" aria-hidden="true">
+            <path d="M12 188C48 165 58 114 101 128C138 141 142 179 181 155C217 133 224 60 263 77C293 91 299 129 348 18" stroke="#2563eb" strokeWidth="2" />
+            <path d="M12 188C48 165 58 114 101 128C138 141 142 179 181 155C217 133 224 60 263 77C293 91 299 129 348 18V220H12V188Z" fill="url(#opsArea)" opacity=".18" />
+            <defs><linearGradient id="opsArea" x1="180" y1="20" x2="180" y2="220" gradientUnits="userSpaceOnUse"><stop stopColor="#22d3ee"/><stop offset="1" stopColor="#fff" stopOpacity="0"/></linearGradient></defs>
+            <circle cx="348" cy="18" r="5" fill="#0891b2" />
+          </svg>
 
           <div className="relative grid grid-cols-12 gap-6 items-center">
             <div className="col-span-12 lg:col-span-7">
-              <div className="flex items-center gap-2 text-[10px] uppercase tracking-wider text-white/80 font-bold mb-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+              <div className="flex items-center gap-2 text-[10px] uppercase tracking-wider text-cyan-700 font-bold mb-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />
                 System · live
               </div>
               <h1 className="text-5xl font-black tracking-tight leading-none">
                 Ops Control
               </h1>
-              <p className="text-white/90 text-sm mt-3 max-w-md">
+              <p className="text-slate-600 text-sm mt-3 max-w-md">
                 {processesRunning} agents running across {mcps.length} MCP servers · all metrics healthy
               </p>
             </div>
             <div className="col-span-12 lg:col-span-5 flex flex-col gap-4">
               <div className="grid grid-cols-3 gap-3">
-                <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-3 border border-white/20">
-                  <div className="text-[9px] uppercase tracking-wider text-white/70 font-bold">Uptime</div>
-                  <div className="text-2xl font-black tabular-nums">{heroStats.uptime}</div>
+                <div className="hero-stat">
+                  <div className="text-[9px] uppercase tracking-wider text-slate-500 font-bold">Uptime</div>
+                  <div className="text-2xl font-black tabular-nums text-slate-900">{heroStats.uptime}</div>
                 </div>
-                <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-3 border border-white/20">
-                  <div className="text-[9px] uppercase tracking-wider text-white/70 font-bold">MCP healthy</div>
-                  <div className="text-2xl font-black tabular-nums">{mcpHealth}%</div>
+                <div className="hero-stat">
+                  <div className="text-[9px] uppercase tracking-wider text-slate-500 font-bold">MCP healthy</div>
+                  <div className="text-2xl font-black tabular-nums text-slate-900">{mcpHealth}%</div>
                 </div>
-                <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-3 border border-white/20">
-                  <div className="text-[9px] uppercase tracking-wider text-white/70 font-bold">Incidents</div>
-                  <div className="text-2xl font-black tabular-nums">1</div>
+                <div className="hero-stat">
+                  <div className="text-[9px] uppercase tracking-wider text-slate-500 font-bold">Incidents</div>
+                  <div className="text-2xl font-black tabular-nums text-slate-900">1</div>
                 </div>
               </div>
-              <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-3 border border-white/20">
+              <div className="hero-stat hero-stat-wide">
                 <div className="flex items-center justify-between mb-1.5">
-                  <div className="text-[9px] uppercase tracking-wider text-white/70 font-bold">Token burn 24h</div>
-                  <div className="text-sm font-bold tabular-nums">510k / 2.5M</div>
+                  <div className="text-[9px] uppercase tracking-wider text-slate-500 font-bold">Token burn 24h</div>
+                  <div className="text-sm font-bold tabular-nums text-slate-900">510k / 2.5M</div>
                 </div>
-                <div className="h-2 rounded-full bg-white/20 overflow-hidden">
+                <div className="h-2 rounded-full bg-slate-200 overflow-hidden">
                   <div className="h-full rounded-full bg-cyan-400" style={{width: "20.4%"}} />
                 </div>
               </div>
@@ -484,7 +489,7 @@ export default function App() {
               <div className="mt-4 h-3 rounded-full bg-white/20 overflow-hidden">
                 <div className="h-full rounded-full bg-emerald-500" style={{ width: `${tokensPct}%` }} />
               </div>
-              <div className="flex items-center justify-between mt-2 text-[10px] font-mono text-white/80">
+              <div className="flex items-center justify-between mt-2 text-[10px] font-mono text-slate-500">
                 <span>{tokensPct.toFixed(0)}% used</span>
                 <span>on track for 1.78M</span>
               </div>
@@ -715,7 +720,7 @@ export default function App() {
             </a>
           </div>
         </footer>
-        </>
+        </div>
         )}
       </main>
     </div>

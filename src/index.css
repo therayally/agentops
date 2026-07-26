@@ -247,6 +247,51 @@
     box-shadow: none;
   }
 
+  /* OPEN DASHBOARD STAGE: typography and graphics carry hierarchy, not card chrome */
+  .live-stage {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+  .live-stage > section {
+    width: 100%;
+  }
+  .live-stage .tile,
+  .live-stage .surface {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+  .live-stage .tile:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .hero-open {
+    min-height: 330px;
+    padding: 3.5rem 2rem 2.5rem;
+  }
+  .hero-open h1 {
+    font-size: clamp(3.5rem, 8vw, 7.5rem);
+    letter-spacing: -0.085em;
+    line-height: .88;
+  }
+  .hero-stat {
+    padding: .85rem 0;
+    border-top: 1px solid rgba(15, 23, 42, .10);
+  }
+  .hero-stat-wide {
+    border-bottom: 1px solid rgba(15, 23, 42, .10);
+  }
+  .live-stage .surface-soft {
+    background: rgba(255,255,255,.72);
+    border: 0;
+    box-shadow: none;
+  }
+  .live-stage .section-header,
+  .live-stage .chip {
+    background: transparent;
+  }
+
   /* PILL INPUT */
   .pill-input {
     @apply px-3 py-1.5 rounded-full text-xs outline-none;
