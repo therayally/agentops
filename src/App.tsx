@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import { mcps, processes, suggestions, timeline, vaults, metrics, crons, heroStats, skills } from "./data";
 import { Sparkline } from "./Sparkline";
+import { BarChart, AreaChart, DonutRing, MiniLine } from "./charts";
+import { chartData, donutData } from "./data";
 
 type Tab = "live" | "agents" | "mcps" | "vaults" | "crons" | "logs";
 
@@ -332,6 +334,49 @@ export default function App() {
             </div>
           </div>
 
+          {/* CHART TILES ROW — visible data viz */}
+          <div className="col-span-6 lg:col-span-4 tile relative overflow-hidden">
+            <div className="orb w-32 h-32 bg-cyan-300 -right-8 -top-8" />
+            <div className="relative">
+              <div className="flex items-center justify-between mb-2">
+                <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">MCP calls · 7 days</div>
+                <span className="text-gradient-cyan-blue text-sm font-bold tabular-nums">31.4k</span>
+              </div>
+              <div className="text-2xl font-bold text-slate-900 mb-2">+18.2%</div>
+              <BarChart values={chartData.mcpCalls7d.map(d => d.v)} height={88} />
+              <div className="flex items-center justify-between text-[9px] font-mono text-slate-500 mt-1">
+                {chartData.mcpCalls7d.map(d => <span key={d.d}>{d.d}</span>)}
+              </div>
+            </div>
+          </div>
+
+          <div className="col-span-6 lg:col-span-4 tile relative overflow-hidden">
+            <div className="orb w-32 h-32 bg-pink-300 -right-8 -bottom-8" style={{animationDelay: '4s'}} />
+            <div className="relative">
+              <div className="flex items-center justify-between mb-2">
+                <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">Token throughput · 24h</div>
+                <span className="text-gradient-pink-orange text-sm font-bold tabular-nums">510k</span>
+              </div>
+              <div className="text-2xl font-bold text-slate-900 mb-2">peak 3:42 PM</div>
+              <AreaChart values={chartData.tokens24h} height={88} color="pink" />
+            </div>
+          </div>
+
+          <div className="col-span-12 lg:col-span-4 tile relative overflow-hidden">
+            <div className="orb w-32 h-32 bg-violet-300 -left-8 -top-8" style={{animationDelay: '8s'}} />
+            <div className="relative">
+              <div className="flex items-center justify-between mb-3">
+                <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">Model mix</div>
+                <span className="text-gradient-purple-pink text-sm font-bold tabular-nums">4 active</span>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {donutData.modelMix.map(d => (
+                  <DonutRing key={d.label} percent={d.value} size={56} strokeWidth={6} gradient={d.gradient} label={d.label} />
+                ))}
+              </div>
+            </div>
+          </div>
+
           {/* 4 KPI tiles */}
           {metrics.map((m, i) => (
             <div key={i} className="col-span-6 lg:col-span-2 tile">
@@ -352,7 +397,7 @@ export default function App() {
                 </span>
               </div>
               <div className="mt-3 -mb-1">
-                <Sparkline values={m.trend} width={160} height={32} />
+                <MiniLine values={m.trend} width={160} height={32} color={(["cyan","blue","purple","green"] as const)[i]} />
               </div>
             </div>
           ))}

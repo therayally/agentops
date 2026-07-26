@@ -210,3 +210,53 @@ export const skills: Skill[] = [
   { name: "hash-compare", active: false, category: "core" },
   { name: "diff-engine", active: false, category: "core" },
 ];
+
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CHART DATA — for the new charts (bars, area, donuts) added in v3 redesign
+// ─────────────────────────────────────────────────────────────────────────────
+
+export const chartData = {
+  // 7-day MCP calls (matches "last 7 days" bar chart in reference)
+  mcpCalls7d: [
+    { d: "Mon", v: 4200 },
+    { d: "Tue", v: 5100 },
+    { d: "Wed", v: 3800 },
+    { d: "Thu", v: 6200 },
+    { d: "Fri", v: 7100 },
+    { d: "Sat", v: 5400 },
+    { d: "Sun", v: 4900 },
+  ],
+  // Token burn 24h (area chart)
+  tokens24h: [
+    120, 145, 132, 168, 195, 178, 210, 245, 232, 268, 295, 280,
+    310, 345, 332, 368, 395, 412, 388, 425, 458, 432, 478, 510,
+  ],
+  // Throughput (cyan line chart)
+  throughput: [
+    62, 58, 65, 71, 68, 74, 82, 78, 85, 88, 92, 95,
+  ],
+  // 4 tool usage progressions
+  tools: [
+    { name: "vector-search",     now: 2840, week: 18900 },
+    { name: "sql-pool",          now: 1520, week: 11200 },
+    { name: "object-store",      now:  890, week:  6700 },
+    { name: "metrics-pipeline",  now:  640, week:  4900 },
+  ],
+};
+
+// donut ring snapshots
+export const donutData = {
+  modelMix: [
+    { label: "fast",       value: 62, gradient: "cyan-blue" as const },
+    { label: "balanced",   value: 84, gradient: "purple-pink" as const },
+    { label: "deep",       value: 41, gradient: "pink-orange" as const },
+    { label: "embedding",  value: 77, gradient: "emerald-cyan" as const },
+  ],
+  capacity: [
+    { label: "GPU",        value: 73, gradient: "purple-pink" as const },
+    { label: "storage",    value: 52, gradient: "cyan-blue" as const },
+    { label: "queue",      value: 18, gradient: "emerald-cyan" as const },
+    { label: "tokens",     value: 61, gradient: "pink-orange" as const },
+  ],
+};
