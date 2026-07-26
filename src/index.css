@@ -248,25 +248,27 @@
   .live-stage {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 1.25rem;
   }
   .live-stage > section {
     width: 100%;
   }
   .live-stage .tile,
-  .live-stage .surface {
-    background: transparent;
-    border: 0;
+  .live-stage .surface,
+  .live-stage .surface-soft {
+    background: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 0;
     box-shadow: none;
   }
-  .live-stage .tile:hover {
+  .live-stage .tile:hover,
+  .live-stage .surface:hover {
+    background: #fafafa;
     transform: none;
     box-shadow: none;
   }
   .live-stage .surface-soft {
-    background: rgba(255,255,255,.72);
-    border: 0;
-    box-shadow: none;
+    background: #ffffff;
   }
   .live-stage .section-header,
   .live-stage .chip {
