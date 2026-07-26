@@ -59,51 +59,14 @@ export function BarChart({
 
         return (
           <g key={i}>
-            {/* Ghost bar — desaturated, low opacity, full outline */}
-            <rect
-              x={x}
-              y={prevY}
-              width={barW}
-              height={prevH}
-              rx={3}
-              fill="none"
-              stroke="#cbd5e1"
-              strokeWidth={1.25}
-              strokeDasharray="3 3"
-              opacity={0.55}
-            />
-            {/* Faded wash inside the ghost */}
-            <rect
-              x={x}
-              y={prevY}
-              width={barW}
-              height={prevH}
-              rx={3}
-              fill="#e2e8f0"
-              opacity={0.35}
-            />
-
-            {/* Current bar — gradient fill, sits in front */}
-            <rect
-              x={x}
-              y={currY}
-              width={barW}
-              height={currH}
-              rx={3}
-              fill={gradFrom}
-            />
-
-            {/* Small "head" indicator showing delta direction */}
-            <line
-              x1={x + barW / 2}
-              y1={prevY}
-              x2={x + barW / 2}
-              y2={currY - 2}
-              stroke={grew ? gradients.start : "#f43f5e"}
-              strokeWidth={1.5}
-              strokeDasharray="2 2"
-              opacity={0.5}
-            />
+          <rect
+            x={x}
+            y={currY}
+            width={barW}
+            height={currH}
+            rx={2}
+            fill={gradFrom}
+          />
           </g>
         );
       })}
@@ -126,10 +89,10 @@ export function AreaChart({
   color?: "red" | "cyan" | "blue" | "green";
 }) {
   const stops = {
-    red:    { start: "#dc2626", end: "#ef4444" },
-    cyan:   { start: "#06b6d4", end: "#67e8f9" },
-    blue:   { start: "#3b82f6", end: "#60a5fa" },
-    green:  { start: "#059669", end: "#10b981" },
+    red:    "#dc2626",
+    cyan:   "#0891b2",
+    blue:   "#2563eb",
+    green:  "#059669",
   }[color];
   const gradId = `area-grad-${color}`;
 
@@ -152,28 +115,18 @@ export function AreaChart({
     return `${acc} C ${cx} ${py}, ${cx} ${y}, ${x} ${y}`;
   }, "");
 
-  const areaPath = `${path} L ${points[points.length - 1][0]} ${height - 4} L ${points[0][0]} ${height - 4} Z`;
-
   return (
     <svg width={width} height={height} className="block">
-      <defs>
-        <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={stops.start} stopOpacity={0.4} />
-          <stop offset="100%" stopColor={stops.start} stopOpacity={0} />
-        </linearGradient>
-      </defs>
-      <path d={areaPath} fill={`url(#${gradId})`} />
       <path
         d={path}
         fill="none"
-        stroke={stops.start}
+        stroke={stops}
         strokeWidth={2}
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      {/* endpoint dots */}
       {points.filter((_, i) => i % 3 === 0 || i === points.length - 1).map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r={2.5} fill="#ffffff" stroke={stops.start} strokeWidth={1.5} />
+        <circle key={i} cx={x} cy={y} r="2.5" fill={stops} />
       ))}
     </svg>
   );
@@ -209,6 +162,13 @@ export function DonutRing({
   }[gradient];
   const gradId = `donut-${gradient}-${size}`;
 
+  const solid = {
+    "cyan-blue":  "#2563eb",
+    "blue-cyan":  "#0891b2",
+    "red-blue":   "#dc2626",
+    "green-cyan": "#059669",
+  }[gradient];
+
   return (
     <div className="flex flex-col items-center">
       <div className="relative" style={{ width: size, height: size }}>
@@ -231,7 +191,7 @@ export function DonutRing({
             cx={size / 2}
             cy={size / 2}
             r={r}
-            stroke={`url(#${gradId})`}
+            stroke={solid}
             strokeWidth={strokeWidth}
             fill="none"
             strokeLinecap="round"
@@ -267,7 +227,7 @@ export function MiniLine({
   fill?: boolean;
 }) {
   const stops = {
-    blue:   "#3b82f6",
+    blue:   "#2563eb",
     red:    "#dc2626",
     green:  "#059669",
     cyan:   "#0891b2",
@@ -291,19 +251,9 @@ export function MiniLine({
     return `${acc} C ${cx} ${py}, ${cx} ${y}, ${x} ${y}`;
   }, "");
 
-  const areaPath = `${path} L ${points[points.length - 1][0]} ${height} L ${points[0][0]} ${height} Z`;
-  const gradId = `miniline-${color}`;
-
   return (
     <svg width={width} height={height} className="block">
-      <defs>
-        <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={stops} stopOpacity={0.3} />
-          <stop offset="100%" stopColor={stops} stopOpacity={0} />
-        </linearGradient>
-      </defs>
-      {fill && <path d={areaPath} fill={`url(#${gradId})`} />}
-      <path d={path} fill="none" stroke={stops} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" />
+      <path d={path} fill="none" stroke={stops} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
