@@ -299,7 +299,7 @@ export default function App() {
         <>
         {/* ROW 1: professional dark control header */}
         <section
-          className="rounded-[14px] p-8 relative overflow-hidden text-white border border-slate-700"
+          className="rounded-[14px] p-8 relative overflow-hidden text-white"
           style={{
             background: "#111827",
             boxShadow: "0 18px 50px -28px rgba(15, 23, 42, 0.85)",
@@ -406,7 +406,7 @@ export default function App() {
 
           {/* 2 donut rings stacked */}
           <div className="col-span-12 lg:col-span-4 flex flex-col gap-4">
-            <div className="tile relative overflow-hidden flex-1 border-l-4 border-blue-500">
+            <div className="tile relative overflow-hidden flex-1">
               <div className="relative">
                 <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold mb-2">Model mix</div>
                 <div className="grid grid-cols-2 gap-1">
@@ -416,7 +416,7 @@ export default function App() {
                 </div>
               </div>
             </div>
-            <div className="tile relative overflow-hidden flex-1 border-l-4 border-emerald-600">
+            <div className="tile relative overflow-hidden flex-1">
               <div className="relative">
                 <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold mb-2">Capacity</div>
                 <div className="grid grid-cols-2 gap-1">
@@ -468,7 +468,7 @@ export default function App() {
 
           {/* Token budget: black operations card */}
           <div
-            className="col-span-12 lg:col-span-4 rounded-2xl p-5 relative overflow-hidden text-white border border-zinc-700"
+            className="col-span-12 lg:col-span-4 rounded-2xl p-5 relative overflow-hidden text-white"
             style={{ background: "#09090b" }}
           >
             <div className="absolute inset-y-0 right-0 w-1 bg-emerald-500" />
