@@ -245,18 +245,18 @@ export const chartData = {
   ],
 };
 
-// donut ring snapshots
+// donut ring snapshots use the four-color dashboard palette
 export const donutData = {
   modelMix: [
     { label: "fast",       value: 62, gradient: "cyan-blue" as const },
-    { label: "balanced",   value: 84, gradient: "purple-pink" as const },
-    { label: "deep",       value: 41, gradient: "pink-orange" as const },
-    { label: "embedding",  value: 77, gradient: "emerald-cyan" as const },
+    { label: "balanced",   value: 84, gradient: "blue-cyan" as const },
+    { label: "deep",       value: 41, gradient: "red-blue" as const },
+    { label: "embedding",  value: 77, gradient: "green-cyan" as const },
   ],
   capacity: [
-    { label: "GPU",        value: 73, gradient: "purple-pink" as const },
+    { label: "GPU",        value: 73, gradient: "blue-cyan" as const },
     { label: "storage",    value: 52, gradient: "cyan-blue" as const },
-    { label: "queue",      value: 18, gradient: "emerald-cyan" as const },
-    { label: "tokens",     value: 61, gradient: "pink-orange" as const },
+    { label: "queue",      value: 18, gradient: "green-cyan" as const },
+    { label: "tokens",     value: 61, gradient: "red-blue" as const },
   ],
 };

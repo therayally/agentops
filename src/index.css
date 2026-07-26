@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @layer base {
   * {
@@ -16,13 +16,12 @@
     min-height: 100vh;
   }
 
-  /* LIGHT MODE CANVAS — white with subtle radial pastel haze */
+  /* PROFESSIONAL DASHBOARD CANVAS: neutrals carry the UI, four accents carry meaning */
   body {
-    background-color: #f8fafc;
-    background-image:
-      radial-gradient(at 0% 0%,    rgba(99, 102, 241, 0.08) 0px, transparent 50%),
-      radial-gradient(at 100% 0%,  rgba(236, 72, 153, 0.06) 0px, transparent 50%),
-      radial-gradient(at 50% 100%, rgba(34, 211, 238, 0.06) 0px, transparent 50%);
+    background-color: #eef1f4;
+    background-image: linear-gradient(rgba(15, 23, 42, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15, 23, 42, 0.025) 1px, transparent 1px);
+    background-size: 32px 32px;
     background-attachment: fixed;
   }
 
@@ -79,12 +78,12 @@
     background: rgba(0, 0, 0, 0.08);
   }
   .pill-active {
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    background: #111827;
     color: #ffffff;
-    box-shadow: 0 4px 12px -2px rgba(99, 102, 241, 0.4);
+    box-shadow: 0 4px 12px -2px rgba(17, 24, 39, 0.28);
   }
   .pill-active:hover {
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    background: #1f2937;
   }
 
   /* GRADIENT TEXT — vivid on white */
@@ -95,19 +94,19 @@
     color: transparent;
   }
   .text-gradient-blue-purple {
-    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    background: #2563eb;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
-  .text-gradient-purple-pink {
-    background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+  .text-gradient-purple-blue {
+    background: #0891b2;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
-  .text-gradient-pink-orange {
-    background: linear-gradient(135deg, #ec4899 0%, #f97316 100%);
+  .text-gradient-cyan-blue {
+    background: #2563eb;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -143,7 +142,7 @@
 
   /* TILE WITH TOP COLOR GRADIENT BAR */
   .tile-gradient-top {
-    background-image: linear-gradient(180deg, var(--grad-from, #6366f1) 0%, var(--grad-to, #8b5cf6) 100%);
+    background-image: linear-gradient(180deg, var(--grad-from, #2563eb) 0%, var(--grad-to, #0891b2) 100%);
     background-origin: border-box;
     background-clip: padding-box;
   }
@@ -156,62 +155,43 @@
       0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
-  /* ICON TILE GRADIENT VARIANTS */
-  .icon-cyan    { background: linear-gradient(135deg, #67e8f9 0%, #06b6d4 100%); }
-  .icon-blue    { background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%); }
-  .icon-indigo  { background: linear-gradient(135deg, #818cf8 0%, #6366f1 100%); }
-  .icon-purple  { background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%); }
-  .icon-pink    { background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%); }
-  .icon-rose    { background: linear-gradient(135deg, #fb7185 0%, #f43f5e 100%); }
-  .icon-orange  { background: linear-gradient(135deg, #fb923c 0%, #f97316 100%); }
-  .icon-yellow  { background: linear-gradient(135deg, #fde047 0%, #eab308 100%); }
-  .icon-lime    { background: linear-gradient(135deg, #bef264 0%, #84cc16 100%); }
-  .icon-green   { background: linear-gradient(135deg, #6ee7b7 0%, #10b981 100%); }
-  .icon-mint    { background: linear-gradient(135deg, #5eead4 0%, #14b8a6 100%); }
-  .icon-teal    { background: linear-gradient(135deg, #5eead4 0%, #0d9488 100%); }
-  .icon-gray    { background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%); }
-  .icon-amber   { background: linear-gradient(135deg, #fcd34d 0%, #f59e0b 100%); }
+  /* FOUR ACCENTS ONLY: blue, cyan, green, red. Legacy class names map into this system. */
+  .icon-cyan, .icon-pink    { background: #0891b2; }
+  .icon-blue, .icon-indigo, .icon-purple, .icon-orange { background: #2563eb; }
+  .icon-rose, .icon-yellow, .icon-lime, .icon-green, .icon-mint, .icon-teal, .icon-amber { background: #059669; }
+  .icon-gray    { background: #111827; }
 
-  /* SOFT TAG — colored icon dot + label */
+  /* SOFT TAG */
   .tag {
     @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold;
   }
 
-  .tag-cyan    { background: rgba(34, 211, 238, 0.12); color: #0891b2; }
-  .tag-blue    { background: rgba(59, 130, 246, 0.12); color: #1d4ed8; }
-  .tag-indigo  { background: rgba(99, 102, 246, 0.12); color: #4338ca; }
-  .tag-purple  { background: rgba(139, 92, 246, 0.12); color: #6d28d9; }
-  .tag-pink    { background: rgba(236, 72, 153, 0.12); color: #be185d; }
-  .tag-rose    { background: rgba(244, 63, 94, 0.12); color: #be123c; }
-  .tag-orange  { background: rgba(249, 115, 22, 0.12); color: #c2410c; }
-  .tag-yellow  { background: rgba(234, 179, 8, 0.12); color: #a16207; }
-  .tag-lime    { background: rgba(132, 204, 22, 0.12); color: #4d7c0f; }
-  .tag-green   { background: rgba(16, 185, 129, 0.12); color: #047857; }
-  .tag-mint    { background: rgba(20, 184, 166, 0.12); color: #0f766e; }
-  .tag-teal    { background: rgba(13, 148, 136, 0.12); color: #115e59; }
-  .tag-gray    { background: rgba(148, 163, 184, 0.15); color: #475569; }
-  .tag-amber   { background: rgba(245, 158, 11, 0.12); color: #b45309; }
+  .tag-cyan, .tag-pink    { background: rgba(8, 145, 178, 0.10); color: #0e7490; }
+  .tag-blue, .tag-indigo, .tag-purple, .tag-orange { background: rgba(37, 99, 235, 0.10); color: #1d4ed8; }
+  .tag-rose, .tag-yellow, .tag-lime, .tag-green, .tag-mint, .tag-teal, .tag-amber { background: rgba(5, 150, 105, 0.10); color: #047857; }
+  .tag-red { background: rgba(220, 38, 38, 0.10); color: #b91c1c; }
+  .tag-gray    { background: rgba(17, 24, 39, 0.08); color: #374151; }
 
   /* STATUS DOTS — soft pill in iOS color */
   .status-healthy  { background: rgba(16, 185, 129, 0.15); color: #047857; }
-  .status-degraded { background: rgba(245, 158, 11, 0.15); color: #b45309; }
+  .status-degraded { background: rgba(220, 38, 38, 0.10); color: #b91c1c; }
   .status-down     { background: rgba(244, 63, 94, 0.15); color: #be123c; }
   .status-running  { background: rgba(59, 130, 246, 0.15); color: #1d4ed8; }
   .status-completed{ background: rgba(16, 185, 129, 0.15); color: #047857; }
   .status-queued   { background: rgba(148, 163, 184, 0.15); color: #475569; }
-  .status-awaiting { background: rgba(245, 158, 11, 0.15); color: #b45309; }
+  .status-awaiting { background: rgba(220, 38, 38, 0.10); color: #b91c1c; }
   .status-ok       { background: rgba(16, 185, 129, 0.15); color: #047857; }
   .status-missed   { background: rgba(244, 63, 94, 0.15); color: #be123c; }
   .status-paused   { background: rgba(148, 163, 184, 0.15); color: #475569; }
   .status-error    { background: rgba(244, 63, 94, 0.15); color: #be123c; }
   .status-fresh    { background: rgba(16, 185, 129, 0.15); color: #047857; }
-  .status-stale    { background: rgba(245, 158, 11, 0.15); color: #b45309; }
+  .status-stale    { background: rgba(220, 38, 38, 0.10); color: #b91c1c; }
   .status-missing  { background: rgba(244, 63, 94, 0.15); color: #be123c; }
   .status-cyan     { background: rgba(34, 211, 238, 0.15); color: #0891b2; }
-  .status-violet   { background: rgba(139, 92, 246, 0.15); color: #6d28d9; }
-  .status-amber    { background: rgba(245, 158, 11, 0.15); color: #b45309; }
-  .status-rose     { background: rgba(244, 63, 94, 0.15); color: #be123c; }
-  .status-emerald  { background: rgba(16, 185, 129, 0.15); color: #047857; }
+  .status-violet   { background: rgba(37, 99, 235, 0.10); color: #1d4ed8; }
+  .status-amber    { background: rgba(220, 38, 38, 0.10); color: #b91c1c; }
+  .status-rose     { background: rgba(220, 38, 38, 0.10); color: #b91c1c; }
+  .status-emerald  { background: rgba(5, 150, 105, 0.10); color: #047857; }
   .status-zinc     { background: rgba(148, 163, 184, 0.15); color: #475569; }
 
   /* STATUS DOT — pulsing circle */
@@ -229,11 +209,11 @@
     background: rgba(0, 0, 0, 0.04);
   }
   .nav-tab-active {
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    background: #111827;
     color: #ffffff;
     box-shadow:
-      0 1px 0 0 rgba(255, 255, 255, 0.3) inset,
-      0 4px 12px -2px rgba(99, 102, 241, 0.4);
+      0 1px 0 0 rgba(255, 255, 255, 0.12) inset,
+      0 4px 12px -2px rgba(17, 24, 39, 0.28);
   }
 
   /* CHIP — small label */

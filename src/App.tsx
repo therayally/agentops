@@ -16,24 +16,24 @@ type Tab = "live" | "agents" | "mcps" | "vaults" | "crons" | "logs";
 
 const statusStyles = {
   healthy:  { dot: "bg-emerald-500", text: "text-emerald-700", chip: "status-healthy",  pill: "tag-green" },
-  degraded: { dot: "bg-amber-500",   text: "text-amber-700",   chip: "status-degraded", pill: "tag-orange" },
-  down:     { dot: "bg-rose-500",    text: "text-rose-700",    chip: "status-down",     pill: "tag-red" },
+  degraded: { dot: "bg-red-500",   text: "text-red-700",   chip: "status-degraded", pill: "tag-red" },
+  down:     { dot: "bg-red-500",    text: "text-red-700",    chip: "status-down",     pill: "tag-red" },
   running:  { dot: "bg-blue-500",    text: "text-blue-700",    chip: "status-running",  pill: "tag-blue" },
   completed:{ dot: "bg-emerald-500", text: "text-emerald-700", chip: "status-completed",pill: "tag-green" },
   queued:   { dot: "bg-zinc-400",    text: "text-zinc-600",    chip: "status-queued",   pill: "tag-gray" },
-  awaiting: { dot: "bg-amber-500",   text: "text-amber-700",   chip: "status-awaiting", pill: "tag-orange" },
+  awaiting: { dot: "bg-red-500",   text: "text-red-700",   chip: "status-awaiting", pill: "tag-red" },
   ok:       { dot: "bg-emerald-500", text: "text-emerald-700", chip: "status-ok",       pill: "tag-green" },
-  missed:   { dot: "bg-rose-500",    text: "text-rose-700",    chip: "status-missed",   pill: "tag-red" },
+  missed:   { dot: "bg-red-500",    text: "text-red-700",    chip: "status-missed",   pill: "tag-red" },
   paused:   { dot: "bg-zinc-400",    text: "text-zinc-600",    chip: "status-paused",   pill: "tag-gray" },
-  error:    { dot: "bg-rose-500",    text: "text-rose-700",    chip: "status-error",    pill: "tag-red" },
+  error:    { dot: "bg-red-500",    text: "text-red-700",    chip: "status-error",    pill: "tag-red" },
   fresh:    { dot: "bg-emerald-500", text: "text-emerald-700", chip: "status-fresh",    pill: "tag-green" },
-  stale:    { dot: "bg-amber-500",   text: "text-amber-700",   chip: "status-stale",    pill: "tag-orange" },
-  missing:  { dot: "bg-rose-500",    text: "text-rose-700",    chip: "status-missing",  pill: "tag-red" },
+  stale:    { dot: "bg-red-500",   text: "text-red-700",   chip: "status-stale",    pill: "tag-red" },
+  missing:  { dot: "bg-red-500",    text: "text-red-700",    chip: "status-missing",  pill: "tag-red" },
   cyan:     { dot: "bg-cyan-500",    text: "text-cyan-700",    chip: "status-cyan",     pill: "tag-cyan" },
-  violet:   { dot: "bg-violet-500",  text: "text-violet-700",  chip: "status-violet",   pill: "tag-purple" },
+  violet:   { dot: "bg-blue-500",  text: "text-blue-700",  chip: "status-violet",   pill: "tag-blue" },
   zinc:     { dot: "bg-zinc-400",    text: "text-zinc-700",    chip: "status-zinc",     pill: "tag-gray" },
-  amber:    { dot: "bg-amber-500",   text: "text-amber-700",   chip: "status-amber",    pill: "tag-orange" },
-  rose:     { dot: "bg-rose-500",    text: "text-rose-700",    chip: "status-rose",     pill: "tag-red" },
+  amber:    { dot: "bg-red-500",   text: "text-red-700",   chip: "status-amber",    pill: "tag-red" },
+  rose:     { dot: "bg-red-500",    text: "text-red-700",    chip: "status-rose",     pill: "tag-red" },
   emerald:  { dot: "bg-emerald-500", text: "text-emerald-700", chip: "status-emerald",  pill: "tag-green" },
 } as const;
 
@@ -67,17 +67,17 @@ const CategoryIcon = ({ c }: { c: string }) => {
 const CategoryTag = ({ c }: { c: string }) => {
   const map: Record<string, string> = {
     search:   "tag-blue",
-    summary:  "tag-purple",
-    classify: "tag-indigo",
-    embed:    "tag-pink",
-    extract:  "tag-orange",
-    index:    "tag-teal",
+    summary:  "tag-blue",
+    classify: "tag-blue",
+    embed:    "tag-cyan",
+    extract:  "tag-red",
+    index:    "tag-green",
     data:     "tag-blue",
     infra:    "tag-gray",
     ops:      "tag-green",
-    frontend: "tag-mint",
-    ai:       "tag-pink",
-    core:     "tag-indigo",
+    frontend: "tag-green",
+    ai:       "tag-cyan",
+    core:     "tag-blue",
   };
   return (
     <span className={`tag ${map[c] || "tag-gray"} inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[10px] font-semibold`}>
@@ -90,7 +90,7 @@ const CategoryTag = ({ c }: { c: string }) => {
 const PriorityBadge = ({ p }: { p: "p0" | "p1" | "p2" | "p3" }) => {
   const map = {
     p0: "bg-red-100 text-red-700",
-    p1: "bg-orange-100 text-orange-700",
+    p1: "bg-red-100 text-red-700",
     p2: "bg-blue-100 text-blue-700",
     p3: "bg-zinc-100 text-zinc-600",
   };
@@ -156,7 +156,7 @@ export default function App() {
             <button className="w-8 h-8 rounded-full flex items-center justify-center bg-zinc-100 hover:bg-zinc-200 transition">
               <Settings2 className="w-3.5 h-3.5 text-zinc-600" />
             </button>
-            <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white icon-pink">
+            <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white icon-cyan">
               RA
             </div>
           </div>
@@ -170,7 +170,7 @@ export default function App() {
           <div className="surface p-6">
             <div className="flex items-center justify-between mb-5">
               <div className="flex items-center gap-3">
-                <div className="icon-tile icon-indigo"><Terminal className="w-4 h-4 text-white" /></div>
+                <div className="icon-tile icon-blue"><Terminal className="w-4 h-4 text-white" /></div>
                 <div>
                   <h2 className="text-lg font-bold text-zinc-900">Activity Timeline</h2>
                   <p className="text-xs text-zinc-500">last 42 min · {timeline.length} events</p>
@@ -219,7 +219,7 @@ export default function App() {
           <div className="surface p-6">
             <div className="flex items-center justify-between mb-5">
               <div className="flex items-center gap-3">
-                <div className="icon-tile icon-purple"><Bot className="w-4 h-4 text-white" /></div>
+                <div className="icon-tile icon-blue"><Bot className="w-4 h-4 text-white" /></div>
                 <div>
                   <h2 className="text-lg font-bold text-zinc-900">Live Agents</h2>
                   <p className="text-xs text-zinc-500">{processesRunning} running · {processes.length} total</p>
@@ -259,7 +259,7 @@ export default function App() {
           <div className="surface p-6">
             <div className="flex items-center justify-between mb-5">
               <div className="flex items-center gap-3">
-                <div className="icon-tile icon-orange"><BookOpen className="w-4 h-4 text-white" /></div>
+                <div className="icon-tile icon-red"><BookOpen className="w-4 h-4 text-white" /></div>
                 <div>
                   <h2 className="text-lg font-bold text-zinc-900">Vault Index</h2>
                   <p className="text-xs text-zinc-500">{vaults.length} namespaces · {vaults.filter(v => v.status === "fresh").length} fresh</p>
@@ -277,7 +277,7 @@ export default function App() {
           <div className="surface p-6">
             <div className="flex items-center justify-between mb-5">
               <div className="flex items-center gap-3">
-                <div className="icon-tile icon-teal"><Clock className="w-4 h-4 text-white" /></div>
+                <div className="icon-tile icon-green"><Clock className="w-4 h-4 text-white" /></div>
                 <div>
                   <h2 className="text-lg font-bold text-zinc-900">Scheduled Jobs</h2>
                   <p className="text-xs text-zinc-500">{crons.length} total · {crons.filter(c => c.status === "missed" || c.status === "error").length} watch</p>
@@ -297,19 +297,18 @@ export default function App() {
         {/* LIVE TAB */}
         {tab === "live" && (
         <>
-        {/* ROW 1 — Full-width gradient hero banner */}
+        {/* ROW 1: professional dark control header */}
         <section
-          className="rounded-3xl p-8 relative overflow-hidden text-white"
+          className="rounded-3xl p-8 relative overflow-hidden text-white border border-slate-700"
           style={{
-            background: "linear-gradient(120deg, #6366f1 0%, #8b5cf6 35%, #ec4899 70%, #f97316 100%)",
+            background: "#111827",
+            boxShadow: "0 18px 50px -28px rgba(15, 23, 42, 0.85)",
           }}
         >
-          {/* Decorative gradient orbs */}
-          <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-white/10 blur-3xl" />
-          <div className="absolute -left-10 -bottom-10 w-72 h-72 rounded-full bg-cyan-300/30 blur-3xl" />
-          <div className="absolute right-1/3 top-1/2 w-2 h-2 rounded-full bg-white/60 animate-pulse" />
-          <div className="absolute right-1/2 top-1/4 w-1.5 h-1.5 rounded-full bg-cyan-200/80 animate-pulse" style={{animationDelay: '1s'}} />
-          <div className="absolute right-1/4 bottom-1/4 w-2 h-2 rounded-full bg-pink-200/80 animate-pulse" style={{animationDelay: '2s'}} />
+          <div className="absolute inset-y-0 left-0 w-1.5 bg-blue-500" />
+          <div className="absolute right-0 top-0 h-full w-1/3 bg-slate-800/45" />
+          <div className="absolute right-12 top-10 w-20 h-20 rounded-full border border-cyan-400/20" />
+          <div className="absolute right-20 top-18 w-3 h-3 rounded-full bg-cyan-400 animate-pulse" />
 
           <div className="relative grid grid-cols-12 gap-6 items-center">
             <div className="col-span-12 lg:col-span-7">
@@ -345,7 +344,7 @@ export default function App() {
                   <div className="text-sm font-bold tabular-nums">510k / 2.5M</div>
                 </div>
                 <div className="h-2 rounded-full bg-white/20 overflow-hidden">
-                  <div className="h-full rounded-full bg-gradient-to-r from-cyan-300 via-white to-pink-200" style={{width: "20.4%"}} />
+                  <div className="h-full rounded-full bg-cyan-400" style={{width: "20.4%"}} />
                 </div>
               </div>
             </div>
@@ -357,18 +356,10 @@ export default function App() {
           {metrics.map((m, i) => (
             <div key={i} className={`col-span-6 lg:col-span-3 tile relative overflow-hidden`}
               style={{ minHeight: i === 1 ? "148px" : i === 2 ? "118px" : "133px" }}>
-              <div className="orb w-24 h-24"
-                style={{
-                  background: ["#fb923c", "#60a5fa", "#a78bfa", "#34d399"][i],
-                  top: i % 2 === 0 ? "-20px" : "auto",
-                  bottom: i % 2 === 1 ? "-20px" : "auto",
-                  right: i % 2 === 0 ? "-20px" : "auto",
-                  left: i % 2 === 1 ? "-20px" : "auto",
-                }} />
               <div className="relative">
                 <div className="flex items-center justify-between mb-2">
                   <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">{m.label}</div>
-                  <div className={`icon-tile w-8 h-8 rounded-lg ${["icon-orange", "icon-blue", "icon-purple", "icon-green"][i]}`}>
+                  <div className={`icon-tile w-8 h-8 rounded-lg ${["icon-blue", "icon-cyan", "icon-green", "icon-gray"][i]}`}>
                     {i === 0 && <Zap className="w-3.5 h-3.5 text-white" />}
                     {i === 1 && <Activity className="w-3.5 h-3.5 text-white" />}
                     {i === 2 && <Network className="w-3.5 h-3.5 text-white" />}
@@ -377,13 +368,13 @@ export default function App() {
                 </div>
                 <div className="flex items-baseline justify-between">
                   <span className="text-2xl font-bold text-slate-900 tabular-nums">{m.value}</span>
-                  <span className={`flex items-center gap-0.5 text-[10px] font-bold font-mono ${m.delta > 0 ? (m.inverse ? "text-rose-600" : "text-emerald-600") : "text-slate-500"}`}>
+                  <span className={`flex items-center gap-0.5 text-[10px] font-bold font-mono ${m.delta > 0 ? (m.inverse ? "text-red-600" : "text-emerald-600") : "text-slate-500"}`}>
                     {m.delta > 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
                     {Math.abs(m.delta).toFixed(1)}%
                   </span>
                 </div>
                 <div className="mt-3 -mb-1">
-                  <MiniLine values={m.trend} width={240} height={32} color={(["cyan","blue","purple","green"] as const)[i]} />
+                  <MiniLine values={m.trend} width={240} height={32} color={(["blue","cyan","green","blue"] as const)[i]} />
                 </div>
               </div>
             </div>
@@ -394,7 +385,6 @@ export default function App() {
         <section className="grid grid-cols-12 gap-4">
           {/* Big bar chart — tall */}
           <div className="col-span-12 lg:col-span-8 tile relative overflow-hidden" style={{minHeight: "280px"}}>
-            <div className="orb w-40 h-40 bg-cyan-300 -right-8 -top-8" />
             <div className="relative">
               <div className="flex items-start justify-between mb-4">
                 <div>
@@ -416,8 +406,7 @@ export default function App() {
 
           {/* 2 donut rings stacked */}
           <div className="col-span-12 lg:col-span-4 flex flex-col gap-4">
-            <div className="tile relative overflow-hidden flex-1">
-              <div className="orb w-32 h-32 bg-pink-300 -right-8 -top-8" style={{animationDelay: '4s'}} />
+            <div className="tile relative overflow-hidden flex-1 border-l-4 border-blue-500">
               <div className="relative">
                 <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold mb-2">Model mix</div>
                 <div className="grid grid-cols-2 gap-1">
@@ -427,8 +416,7 @@ export default function App() {
                 </div>
               </div>
             </div>
-            <div className="tile relative overflow-hidden flex-1">
-              <div className="orb w-32 h-32 bg-emerald-300 -left-8 -bottom-8" style={{animationDelay: '6s'}} />
+            <div className="tile relative overflow-hidden flex-1 border-l-4 border-emerald-600">
               <div className="relative">
                 <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold mb-2">Capacity</div>
                 <div className="grid grid-cols-2 gap-1">
@@ -444,21 +432,19 @@ export default function App() {
         {/* ROW 4 — Area chart wide + token budget gradient */}
         <section className="grid grid-cols-12 gap-4">
           <div className="col-span-12 lg:col-span-8 tile relative overflow-hidden" style={{minHeight: "260px"}}>
-            <div className="orb w-40 h-40 bg-pink-300 -right-12 -bottom-8" style={{animationDelay: '3s'}} />
-            <div className="orb w-32 h-32 bg-purple-300 -left-8 -top-8" style={{animationDelay: '7s'}} />
             <div className="relative">
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">Token throughput · 24h</div>
                   <div className="text-3xl font-black text-slate-900 mt-1 tabular-nums">510k</div>
-                  <div className="text-xs text-pink-600 font-bold mt-0.5">peak 3:42 PM · 28k/hr</div>
+                  <div className="text-xs text-cyan-700 font-bold mt-0.5">peak 3:42 PM · 28k/hr</div>
                 </div>
                 <div className="flex items-center gap-1.5 pill">
-                  <span className="w-1.5 h-1.5 rounded-full bg-pink-500" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-600" />
                   tokens/hr
                 </div>
               </div>
-              <AreaChart values={chartData.tokens24h} width={620} height={140} color="pink" />
+              <AreaChart values={chartData.tokens24h} width={620} height={140} color="cyan" />
               <div className="grid grid-cols-4 gap-3 mt-4">
                 <div>
                   <div className="text-[9px] font-mono text-slate-500 uppercase tracking-wider">Total</div>
@@ -470,7 +456,7 @@ export default function App() {
                 </div>
                 <div>
                   <div className="text-[9px] font-mono text-slate-500 uppercase tracking-wider">Peak</div>
-                  <div className="text-base font-bold text-pink-600 tabular-nums">28k</div>
+                  <div className="text-base font-bold text-cyan-700 tabular-nums">28k</div>
                 </div>
                 <div>
                   <div className="text-[9px] font-mono text-slate-500 uppercase tracking-wider">Cost</div>
@@ -480,12 +466,12 @@ export default function App() {
             </div>
           </div>
 
-          {/* Token budget GRADIENT card */}
+          {/* Token budget: black operations card */}
           <div
-            className="col-span-12 lg:col-span-4 rounded-2xl p-5 relative overflow-hidden text-white"
-            style={{ background: "linear-gradient(160deg, #f97316 0%, #ec4899 60%, #8b5cf6 100%)" }}
+            className="col-span-12 lg:col-span-4 rounded-2xl p-5 relative overflow-hidden text-white border border-zinc-700"
+            style={{ background: "#09090b" }}
           >
-            <div className="absolute -right-16 -bottom-16 w-56 h-56 rounded-full bg-white/15 blur-3xl" />
+            <div className="absolute inset-y-0 right-0 w-1 bg-emerald-500" />
             <div className="relative">
               <div className="flex items-center gap-2 text-[10px] uppercase tracking-wider text-white/80 font-bold mb-3">
                 <Zap className="w-3 h-3" />
@@ -496,7 +482,7 @@ export default function App() {
                 <span className="text-sm text-white/70 font-mono">/ {heroStats.tokenBudget}</span>
               </div>
               <div className="mt-4 h-3 rounded-full bg-white/20 overflow-hidden">
-                <div className="h-full rounded-full bg-white" style={{ width: `${tokensPct}%`, boxShadow: "0 0 12px rgba(255,255,255,0.6)" }} />
+                <div className="h-full rounded-full bg-emerald-500" style={{ width: `${tokensPct}%` }} />
               </div>
               <div className="flex items-center justify-between mt-2 text-[10px] font-mono text-white/80">
                 <span>{tokensPct.toFixed(0)}% used</span>
@@ -540,7 +526,7 @@ export default function App() {
           {/* Live Agents - tall */}
           <div className="col-span-12 lg:col-span-7 surface p-5">
             <SectionHeader
-              icon="purple"
+              icon="blue"
               iconComp={<Bot className="w-4 h-4 text-white" />}
               title="Live Agents"
               badge={`${processesRunning} running`}
@@ -559,7 +545,7 @@ export default function App() {
           {/* Activity Timeline - wide */}
           <div className="col-span-12 lg:col-span-7 surface p-5">
             <SectionHeader
-              icon="indigo"
+              icon="blue"
               iconComp={<Terminal className="w-4 h-4 text-white" />}
               title="Activity Timeline"
               badge="last 42 min"
@@ -622,7 +608,7 @@ export default function App() {
           {/* Vaults - small */}
           <div className="col-span-12 lg:col-span-3 surface p-5">
             <SectionHeader
-              icon="orange"
+              icon="rose"
               iconComp={<BookOpen className="w-4 h-4 text-white" />}
               title="Vaults"
               badge={`${vaults.length}`}
@@ -672,11 +658,11 @@ export default function App() {
           {/* AI Suggestions - 5 wide */}
           <div className="col-span-12 lg:col-span-5 surface p-5">
             <SectionHeader
-              icon="pink"
+              icon="cyan"
               iconComp={<Sparkles className="w-4 h-4 text-white" />}
               title="AI Suggestions"
               badge={`${suggestions.length} queued`}
-              badgeColor="amber"
+              badgeColor="rose"
               action="View all"
               onAction={() => {}}
             />
@@ -739,17 +725,17 @@ export default function App() {
 function CategoryTagColor(c: string): string {
   const map: Record<string, string> = {
     search:   "tag-blue",
-    summary:  "tag-purple",
-    classify: "tag-indigo",
-    embed:    "tag-pink",
-    extract:  "tag-orange",
-    index:    "tag-teal",
+    summary:  "tag-blue",
+    classify: "tag-blue",
+    embed:    "tag-cyan",
+    extract:  "tag-red",
+    index:    "tag-green",
     data:     "tag-blue",
     infra:    "tag-gray",
     ops:      "tag-green",
-    frontend: "tag-mint",
-    ai:       "tag-pink",
-    core:     "tag-indigo",
+    frontend: "tag-green",
+    ai:       "tag-cyan",
+    core:     "tag-blue",
   };
   return map[c] || "tag-gray";
 }
@@ -818,8 +804,8 @@ function McpCard({ m, hovered, onEnter, onLeave, compact = false }: { m: any; ho
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
           <span className="font-mono text-xs font-bold text-zinc-900">{m.name}</span>
-          {m.status === "degraded" && <span className="text-[9px] font-mono text-amber-700 bg-amber-100 px-1.5 rounded">5xx</span>}
-          {m.status === "down" && <span className="text-[9px] font-mono text-rose-700 bg-rose-100 px-1.5 rounded">DOWN</span>}
+          {m.status === "degraded" && <span className="text-[9px] font-mono text-red-700 bg-red-100 px-1.5 rounded">5xx</span>}
+          {m.status === "down" && <span className="text-[9px] font-mono text-red-700 bg-red-100 px-1.5 rounded">DOWN</span>}
         </div>
         {!compact && <div className="text-[11px] text-zinc-500 mt-0.5">{m.description}</div>}
         <div className="flex items-center gap-2 text-[10px] font-mono text-zinc-500 mt-0.5">
@@ -842,7 +828,7 @@ function ProcessRow({ p }: { p: any }) {
       <div className="flex-shrink-0 text-zinc-500">
         {p.state === "running" ? <Loader2 className="w-3.5 h-3.5 text-blue-500 animate-spin" /> :
          p.state === "completed" ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> :
-         p.state === "awaiting" ? <Pause className="w-3.5 h-3.5 text-amber-500" /> :
+         p.state === "awaiting" ? <Pause className="w-3.5 h-3.5 text-red-500" /> :
          <Circle className="w-3.5 h-3.5 text-zinc-400" />}
       </div>
       <div className="flex-shrink-0">
@@ -877,7 +863,7 @@ function ProcessRow({ p }: { p: any }) {
 function ProcessCard({ p }: { p: any }) {
   const iconColor = p.state === "running" ? "icon-blue" :
                     p.state === "completed" ? "icon-green" :
-                    p.state === "awaiting" ? "icon-orange" :
+                    p.state === "awaiting" ? "icon-red" :
                     "icon-gray";
   return (
     <div className="surface-soft p-4 hover:bg-zinc-50 transition">
@@ -942,7 +928,7 @@ function VaultRow({ v }: { v: any }) {
 
 function VaultCard({ v }: { v: any }) {
   const iconColor = v.status === "fresh" ? "icon-green" :
-                    v.status === "stale" ? "icon-orange" :
+                    v.status === "stale" ? "icon-red" :
                     "icon-red";
   return (
     <div className="surface-soft p-4 hover:bg-zinc-50 transition">
@@ -1002,7 +988,7 @@ function CronCard({ c }: { c: any }) {
   const iconColor = c.status === "ok" ? "icon-green" :
                     c.status === "missed" ? "icon-red" :
                     c.status === "paused" ? "icon-gray" :
-                    "icon-orange";
+                    "icon-red";
   return (
     <div className="surface-soft p-4 hover:bg-zinc-50 transition">
       <div className="flex items-start gap-3 mb-3">

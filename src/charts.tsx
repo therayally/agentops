@@ -1,48 +1,110 @@
 import { useMemo } from "react";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// BAR CHART — vertical bars with gradient fills (cyan→blue→purple→pink)
+// BAR CHART — vertical bars with ghosted "previous" bar behind each current bar
+// Each bar shows two states: the prior value (ghosted, behind) and the current
+// value (vibrant gradient, in front). Same width, overlaid, like a slider.
 // ─────────────────────────────────────────────────────────────────────────────
 export function BarChart({
   values,
-  labels,
+  prior,
   width = 280,
   height = 120,
+  accent = "cyan",
 }: {
   values: number[];
-  labels?: string[];
+  prior?: number[];
   width?: number;
   height?: number;
+  accent?: "cyan" | "red" | "blue" | "green";
 }) {
-  const max = Math.max(...values);
-  const barW = (width - 20) / values.length - 4;
-  const gradient = "url(#bar-gradient-cyan-purple-pink)";
+  const gradients = {
+    cyan:   { start: "#22d3ee", mid: "#06b6d4", end: "#0891b2" },
+    red:    { start: "#ef4444", mid: "#dc2626", end: "#b91c1c" },
+    blue:   { start: "#60a5fa", mid: "#3b82f6", end: "#1d4ed8" },
+    green:  { start: "#10b981", mid: "#059669", end: "#047857" },
+  }[accent];
+  const gradId = `bar-grad-${accent}`;
+
+  const max = Math.max(...values, ...(prior || []));
+  const n = values.length;
+  const padding = 16;
+  const gap = 6;
+  const barW = (width - padding * 2 - (n - 1) * gap) / n;
+  const gradFrom = "url(#" + gradId + ")";
 
   return (
     <svg width={width} height={height} className="block">
       <defs>
-        <linearGradient id="bar-gradient-cyan-purple-pink" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#22d3ee" />
-          <stop offset="33%" stopColor="#3b82f6" />
-          <stop offset="66%" stopColor="#8b5cf6" />
-          <stop offset="100%" stopColor="#ec4899" />
+        <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={gradients.start} />
+          <stop offset="100%" stopColor={gradients.end} />
         </linearGradient>
       </defs>
       {values.map((v, i) => {
-        const h = (v / max) * (height - 18);
-        const x = 10 + i * (barW + 4);
-        const y = height - h - 12;
+        const prev = prior ? prior[i] : v;
+        const x = padding + i * (barW + gap);
+        const yBaseline = height - 12;
+
+        // Ghost bar (the prior value) — taller, behind, faded
+        const prevH = (prev / max) * (height - 32);
+        const prevY = yBaseline - prevH;
+
+        // Current bar — in front, vivid gradient
+        const currH = (v / max) * (height - 32);
+        const currY = yBaseline - currH;
+
+        // Direction: if current > prior, grew upward; if lower, ghost shows above
+        const grew = v >= prev;
+
         return (
-          <rect
-            key={i}
-            x={x}
-            y={y}
-            width={barW}
-            height={h}
-            rx={2}
-            fill={gradient}
-            opacity={0.85}
-          />
+          <g key={i}>
+            {/* Ghost bar — desaturated, low opacity, full outline */}
+            <rect
+              x={x}
+              y={prevY}
+              width={barW}
+              height={prevH}
+              rx={3}
+              fill="none"
+              stroke="#cbd5e1"
+              strokeWidth={1.25}
+              strokeDasharray="3 3"
+              opacity={0.55}
+            />
+            {/* Faded wash inside the ghost */}
+            <rect
+              x={x}
+              y={prevY}
+              width={barW}
+              height={prevH}
+              rx={3}
+              fill="#e2e8f0"
+              opacity={0.35}
+            />
+
+            {/* Current bar — gradient fill, sits in front */}
+            <rect
+              x={x}
+              y={currY}
+              width={barW}
+              height={currH}
+              rx={3}
+              fill={gradFrom}
+            />
+
+            {/* Small "head" indicator showing delta direction */}
+            <line
+              x1={x + barW / 2}
+              y1={prevY}
+              x2={x + barW / 2}
+              y2={currY - 2}
+              stroke={grew ? gradients.start : "#f43f5e"}
+              strokeWidth={1.5}
+              strokeDasharray="2 2"
+              opacity={0.5}
+            />
+          </g>
         );
       })}
     </svg>
@@ -56,18 +118,18 @@ export function AreaChart({
   values,
   width = 280,
   height = 100,
-  color = "pink",
+  color = "cyan",
 }: {
   values: number[];
   width?: number;
   height?: number;
-  color?: "pink" | "cyan" | "blue" | "purple";
+  color?: "red" | "cyan" | "blue" | "green";
 }) {
   const stops = {
-    pink:   { start: "#ec4899", end: "#f472b6" },
+    red:    { start: "#dc2626", end: "#ef4444" },
     cyan:   { start: "#06b6d4", end: "#67e8f9" },
     blue:   { start: "#3b82f6", end: "#60a5fa" },
-    purple: { start: "#8b5cf6", end: "#a78bfa" },
+    green:  { start: "#059669", end: "#10b981" },
   }[color];
   const gradId = `area-grad-${color}`;
 
@@ -131,7 +193,7 @@ export function DonutRing({
   percent: number;
   size?: number;
   strokeWidth?: number;
-  gradient?: "cyan-blue" | "purple-pink" | "pink-orange" | "emerald-cyan";
+  gradient?: "cyan-blue" | "blue-cyan" | "red-blue" | "green-cyan";
   label?: string;
   value?: string;
 }) {
@@ -140,10 +202,10 @@ export function DonutRing({
   const offset = c - (percent / 100) * c;
 
   const gradients = {
-    "cyan-blue":      ["#22d3ee", "#3b82f6"],
-    "purple-pink":    ["#8b5cf6", "#ec4899"],
-    "pink-orange":    ["#ec4899", "#f97316"],
-    "emerald-cyan":   ["#10b981", "#22d3ee"],
+    "cyan-blue":  ["#0891b2", "#2563eb"],
+    "blue-cyan":  ["#2563eb", "#0891b2"],
+    "red-blue":   ["#dc2626", "#2563eb"],
+    "green-cyan": ["#059669", "#0891b2"],
   }[gradient];
   const gradId = `donut-${gradient}-${size}`;
 
@@ -201,15 +263,14 @@ export function MiniLine({
   values: number[];
   width?: number;
   height?: number;
-  color?: "blue" | "pink" | "green" | "purple" | "cyan";
+  color?: "blue" | "red" | "green" | "cyan";
   fill?: boolean;
 }) {
   const stops = {
     blue:   "#3b82f6",
-    pink:   "#ec4899",
-    green:  "#10b981",
-    purple: "#8b5cf6",
-    cyan:   "#06b6d4",
+    red:    "#dc2626",
+    green:  "#059669",
+    cyan:   "#0891b2",
   }[color];
 
   const max = Math.max(...values);
